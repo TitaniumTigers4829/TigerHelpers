@@ -7,8 +7,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
-import frc.robot.TigerHelpers.LimelightResults;
-import frc.robot.TigerHelpers.PoseEstimate;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -16,21 +14,10 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**  
@@ -211,8 +198,6 @@ public class TigerHelpers {
         }
     }
 
-    private static ObjectMapper mapper;
-
     static final String sanitizeName(String name) {
         if (name.equals("") || name.equals(null)) {
             return "limelight";
@@ -377,44 +362,6 @@ public class TigerHelpers {
         }
     
         return rawFiducials;
-    }
-
-    /**
-     * Gets the latest raw neural detector results from NetworkTables
-     *
-     * @param limelightName Name/identifier of the Limelight
-     * @return Array of RawDetection objects containing detection details
-     */
-    public static RawDetection[] getRawDetections(String limelightName) {
-        var entry = TigerHelpers.getLimelightNTTableEntry(limelightName, "rawdetections");
-        var rawDetectionArray = entry.getDoubleArray(new double[0]);
-        int valsPerEntry = 12;
-        if (rawDetectionArray.length % valsPerEntry != 0) {
-            return new RawDetection[0];
-        }
-    
-        int numDetections = rawDetectionArray.length / valsPerEntry;
-        RawDetection[] rawDetections = new RawDetection[numDetections];
-    
-        for (int i = 0; i < numDetections; i++) {
-            int baseIndex = i * valsPerEntry; // Starting index for this detection's data
-            int classId = (int) extractArrayEntry(rawDetectionArray, baseIndex);
-            double txnc = extractArrayEntry(rawDetectionArray, baseIndex + 1);
-            double tync = extractArrayEntry(rawDetectionArray, baseIndex + 2);
-            double ta = extractArrayEntry(rawDetectionArray, baseIndex + 3);
-            double corner0_X = extractArrayEntry(rawDetectionArray, baseIndex + 4);
-            double corner0_Y = extractArrayEntry(rawDetectionArray, baseIndex + 5);
-            double corner1_X = extractArrayEntry(rawDetectionArray, baseIndex + 6);
-            double corner1_Y = extractArrayEntry(rawDetectionArray, baseIndex + 7);
-            double corner2_X = extractArrayEntry(rawDetectionArray, baseIndex + 8);
-            double corner2_Y = extractArrayEntry(rawDetectionArray, baseIndex + 9);
-            double corner3_X = extractArrayEntry(rawDetectionArray, baseIndex + 10);
-            double corner3_Y = extractArrayEntry(rawDetectionArray, baseIndex + 11);
-            
-            rawDetections[i] = new RawDetection(classId, txnc, tync, ta, corner0_X, corner0_Y, corner1_X, corner1_Y, corner2_X, corner2_Y, corner3_X, corner3_Y);
-        }
-    
-        return rawDetections;
     }
 
     public static Boolean validPoseEstimate(PoseEstimate pose) {
