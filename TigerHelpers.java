@@ -1,5 +1,7 @@
 // TigerHelpers v1.0 (REQUIRES LLOS 2025.0 OR LATER)
 
+package frc.robot;
+
 import edu.wpi.first.networktables.DoubleArrayEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -30,451 +32,50 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * TigerHelpers provides static methods and classes for interfacing with Limelight vision cameras in FRC.
- * This library supports all Limelight features including AprilTag tracking, Neural Networks, and standard color/retroreflective tracking.
+/**  
+ * TigerHelpers is built on top of LimelightHelpers, providing a set of static methods and classes for interfacing  
+ * with Limelights, with a dedicated focus on AprilTag pose estimation via Networktables.  
+ * 
+ * It includes additional helper methods to simplify common tasks, improve integration with unit testing,  
+ * and enhance usability while staying up to date with new Limelight features.  
  */
 public class TigerHelpers {
 
     private static final Map<String, DoubleArrayEntry> doubleArrayEntries = new ConcurrentHashMap<>();
 
     /**
-     * Represents a Color/Retroreflective Target Result extracted from JSON Output
-     */
-    public static class LimelightTarget_Retro {
-
-        @JsonProperty("t6c_ts")
-        private double[] cameraPose_TargetSpace;
-
-        @JsonProperty("t6r_fs")
-        private double[] robotPose_FieldSpace;
-
-        @JsonProperty("t6r_ts")
-        private  double[] robotPose_TargetSpace;
-
-        @JsonProperty("t6t_cs")
-        private double[] targetPose_CameraSpace;
-
-        @JsonProperty("t6t_rs")
-        private double[] targetPose_RobotSpace;
-
-        public Pose3d getCameraPose_TargetSpace()
-        {
-            return toPose3D(cameraPose_TargetSpace);
-        }
-        public Pose3d getRobotPose_FieldSpace()
-        {
-            return toPose3D(robotPose_FieldSpace);
-        }
-        public Pose3d getRobotPose_TargetSpace()
-        {
-            return toPose3D(robotPose_TargetSpace);
-        }
-        public Pose3d getTargetPose_CameraSpace()
-        {
-            return toPose3D(targetPose_CameraSpace);
-        }
-        public Pose3d getTargetPose_RobotSpace()
-        {
-            return toPose3D(targetPose_RobotSpace);
-        }
-
-        public Pose2d getCameraPose_TargetSpace2D()
-        {
-            return toPose2D(cameraPose_TargetSpace);
-        }
-        public Pose2d getRobotPose_FieldSpace2D()
-        {
-            return toPose2D(robotPose_FieldSpace);
-        }
-        public Pose2d getRobotPose_TargetSpace2D()
-        {
-            return toPose2D(robotPose_TargetSpace);
-        }
-        public Pose2d getTargetPose_CameraSpace2D()
-        {
-            return toPose2D(targetPose_CameraSpace);
-        }
-        public Pose2d getTargetPose_RobotSpace2D()
-        {
-            return toPose2D(targetPose_RobotSpace);
-        }
-
-        @JsonProperty("ta")
-        public double ta;
-
-        @JsonProperty("tx")
-        public double tx;
-        
-        @JsonProperty("ty")
-        public double ty;
-
-        @JsonProperty("txp")
-        public double tx_pixels;
-
-        @JsonProperty("typ")
-        public double ty_pixels;
-
-        @JsonProperty("tx_nocross")
-        public double tx_nocrosshair;
-
-        @JsonProperty("ty_nocross")
-        public double ty_nocrosshair;
-
-        @JsonProperty("ts")
-        public double ts;
-
-        public LimelightTarget_Retro() {
-            cameraPose_TargetSpace = new double[6];
-            robotPose_FieldSpace = new double[6];
-            robotPose_TargetSpace = new double[6];
-            targetPose_CameraSpace = new double[6];
-            targetPose_RobotSpace = new double[6];
-        }
-
-    }
-
-    /**
-     * Represents an AprilTag/Fiducial Target Result extracted from JSON Output
-     */
-    public static class LimelightTarget_Fiducial {
-
-        @JsonProperty("fID")
-        public double fiducialID;
-
-        @JsonProperty("fam")
-        public String fiducialFamily;
-
-        @JsonProperty("t6c_ts")
-        private double[] cameraPose_TargetSpace;
-
-        @JsonProperty("t6r_fs")
-        private double[] robotPose_FieldSpace;
-
-        @JsonProperty("t6r_ts")
-        private double[] robotPose_TargetSpace;
-
-        @JsonProperty("t6t_cs")
-        private double[] targetPose_CameraSpace;
-
-        @JsonProperty("t6t_rs")
-        private double[] targetPose_RobotSpace;
-
-        public Pose3d getCameraPose_TargetSpace()
-        {
-            return toPose3D(cameraPose_TargetSpace);
-        }
-        public Pose3d getRobotPose_FieldSpace()
-        {
-            return toPose3D(robotPose_FieldSpace);
-        }
-        public Pose3d getRobotPose_TargetSpace()
-        {
-            return toPose3D(robotPose_TargetSpace);
-        }
-        public Pose3d getTargetPose_CameraSpace()
-        {
-            return toPose3D(targetPose_CameraSpace);
-        }
-        public Pose3d getTargetPose_RobotSpace()
-        {
-            return toPose3D(targetPose_RobotSpace);
-        }
-
-        public Pose2d getCameraPose_TargetSpace2D()
-        {
-            return toPose2D(cameraPose_TargetSpace);
-        }
-        public Pose2d getRobotPose_FieldSpace2D()
-        {
-            return toPose2D(robotPose_FieldSpace);
-        }
-        public Pose2d getRobotPose_TargetSpace2D()
-        {
-            return toPose2D(robotPose_TargetSpace);
-        }
-        public Pose2d getTargetPose_CameraSpace2D()
-        {
-            return toPose2D(targetPose_CameraSpace);
-        }
-        public Pose2d getTargetPose_RobotSpace2D()
-        {
-            return toPose2D(targetPose_RobotSpace);
-        }
-        
-        @JsonProperty("ta")
-        public double ta;
-
-        @JsonProperty("tx")
-        public double tx;
-
-        @JsonProperty("ty")
-        public double ty;
-
-        @JsonProperty("txp")
-        public double tx_pixels;
-
-        @JsonProperty("typ")
-        public double ty_pixels;
-
-        @JsonProperty("tx_nocross")
-        public double tx_nocrosshair;
-
-        @JsonProperty("ty_nocross")
-        public double ty_nocrosshair;
-
-        @JsonProperty("ts")
-        public double ts;
-        
-        public LimelightTarget_Fiducial() {
-            cameraPose_TargetSpace = new double[6];
-            robotPose_FieldSpace = new double[6];
-            robotPose_TargetSpace = new double[6];
-            targetPose_CameraSpace = new double[6];
-            targetPose_RobotSpace = new double[6];
-        }
-    }
-
-    /**
-     * Represents a Barcode Target Result extracted from JSON Output
-     */
-    public static class LimelightTarget_Barcode {
-
-        /**
-         * Barcode family type (e.g. "QR", "DataMatrix", etc.)
-         */
-        @JsonProperty("fam")
-        public String family;
-
-        /**
-         * Gets the decoded data content of the barcode
-         */
-        @JsonProperty("data") 
-        public String data;
-
-        @JsonProperty("txp")
-        public double tx_pixels;
-
-        @JsonProperty("typ")
-        public double ty_pixels;
-
-        @JsonProperty("tx")
-        public double tx;
-
-        @JsonProperty("ty")
-        public double ty;
-
-        @JsonProperty("tx_nocross")
-        public double tx_nocrosshair;
-
-        @JsonProperty("ty_nocross")
-        public double ty_nocrosshair;
-
-        @JsonProperty("ta")
-        public double ta;
-
-        @JsonProperty("pts")
-        public double[][] corners;
-
-        public LimelightTarget_Barcode() {
-        }
-
-        public String getFamily() {
-            return family;
-        }
-    }
-
-    /**
-     * Represents a Neural Classifier Pipeline Result extracted from JSON Output
-     */
-    public static class LimelightTarget_Classifier {
-
-        @JsonProperty("class")
-        public String className;
-
-        @JsonProperty("classID")
-        public double classID;
-
-        @JsonProperty("conf")
-        public double confidence;
-
-        @JsonProperty("zone")
-        public double zone;
-
-        @JsonProperty("tx")
-        public double tx;
-
-        @JsonProperty("txp")
-        public double tx_pixels;
-
-        @JsonProperty("ty")
-        public double ty;
-
-        @JsonProperty("typ")
-        public double ty_pixels;
-
-        public  LimelightTarget_Classifier() {
-        }
-    }
-
-    /**
-     * Represents a Neural Detector Pipeline Result extracted from JSON Output
-     */
-    public static class LimelightTarget_Detector {
-
-        @JsonProperty("class")
-        public String className;
-
-        @JsonProperty("classID")
-        public double classID;
-
-        @JsonProperty("conf")
-        public double confidence;
-
-        @JsonProperty("ta")
-        public double ta;
-
-        @JsonProperty("tx")
-        public double tx;
-
-        @JsonProperty("ty")
-        public double ty;
-
-        @JsonProperty("txp")
-        public double tx_pixels;
-
-        @JsonProperty("typ")
-        public double ty_pixels;
-
-        @JsonProperty("tx_nocross")
-        public double tx_nocrosshair;
-
-        @JsonProperty("ty_nocross")
-        public double ty_nocrosshair;
-
-        public LimelightTarget_Detector() {
-        }
-    }
-
-    /**
-     * Limelight Results object, parsed from a Limelight's JSON results output.
-     */
-    public static class LimelightResults {
-        
-        public String error;
-        
-        @JsonProperty("pID")
-        public double pipelineID;
-
-        @JsonProperty("tl")
-        public double latency_pipeline;
-
-        @JsonProperty("cl")
-        public double latency_capture;
-
-        public double latency_jsonParse;
-
-        @JsonProperty("ts")
-        public double timestamp_LIMELIGHT_publish;
-
-        @JsonProperty("ts_rio")
-        public double timestamp_RIOFPGA_capture;
-
-        @JsonProperty("v")
-        @JsonFormat(shape = Shape.NUMBER)
-        public boolean valid;
-
-        @JsonProperty("botpose")
-        public double[] botpose;
-
-        @JsonProperty("botpose_wpired")
-        public double[] botpose_wpired;
-
-        @JsonProperty("botpose_wpiblue")
-        public double[] botpose_wpiblue;
-
-        @JsonProperty("botpose_tagcount")
-        public double botpose_tagcount;
-       
-        @JsonProperty("botpose_span")
-        public double botpose_span;
-       
-        @JsonProperty("botpose_avgdist")
-        public double botpose_avgdist;
-       
-        @JsonProperty("botpose_avgarea")
-        public double botpose_avgarea;
-
-        @JsonProperty("t6c_rs")
-        public double[] camerapose_robotspace;
-
-        public Pose3d getBotPose3d() {
-            return toPose3D(botpose);
-        }
-    
-        public Pose3d getBotPose3d_wpiRed() {
-            return toPose3D(botpose_wpired);
-        }
-    
-        public Pose3d getBotPose3d_wpiBlue() {
-            return toPose3D(botpose_wpiblue);
-        }
-
-        public Pose2d getBotPose2d() {
-            return toPose2D(botpose);
-        }
-    
-        public Pose2d getBotPose2d_wpiRed() {
-            return toPose2D(botpose_wpired);
-        }
-    
-        public Pose2d getBotPose2d_wpiBlue() {
-            return toPose2D(botpose_wpiblue);
-        }
-
-        @JsonProperty("Retro")
-        public LimelightTarget_Retro[] targets_Retro;
-
-        @JsonProperty("Fiducial")
-        public LimelightTarget_Fiducial[] targets_Fiducials;
-
-        @JsonProperty("Classifier")
-        public LimelightTarget_Classifier[] targets_Classifier;
-
-        @JsonProperty("Detector")
-        public LimelightTarget_Detector[] targets_Detector;
-
-        @JsonProperty("Barcode")
-        public LimelightTarget_Barcode[] targets_Barcode;
-
-        public LimelightResults() {
-            botpose = new double[6];
-            botpose_wpired = new double[6];
-            botpose_wpiblue = new double[6];
-            camerapose_robotspace = new double[6];
-            targets_Retro = new LimelightTarget_Retro[0];
-            targets_Fiducials = new LimelightTarget_Fiducial[0];
-            targets_Classifier = new LimelightTarget_Classifier[0];
-            targets_Detector = new LimelightTarget_Detector[0];
-            targets_Barcode = new LimelightTarget_Barcode[0];
-
-        }
-
-
-    }
-
-    /**
      * Represents a Limelight Raw Fiducial result from Limelight's NetworkTables output.
      */
     public static class RawFiducial {
+        /** The id of the april tag */
         public int id = 0;
+        /** 
+         * The horizontal offset of the target from the Limelight's principle pixel (the images central pixel) in degrees. 
+         * Positive values mean the target is to the right of the crosshair.
+         */
         public double txnc = 0;
+        /** 
+         * The vertical offset of the target from the Limelight's principle pixel (the images central pixel) in degrees. 
+         * Positive values mean the target is below the crosshair.
+         */
         public double tync = 0;
+        /** 
+         * The area of the target in the Limelight's view as a percentage of the total image area.
+         * So, if the target takes up 10% of the image, this value will be 0.1.
+         */
         public double ta = 0;
+        /** The distance from the Limelight to the april tag in meters. */
         public double distToCamera = 0;
+        /** The distance from the robot to the april tag in meters. */
         public double distToRobot = 0;
+        /** 
+         * The ambiguity of the april tag. This ranges from 0 to 1, a lower values meaning less ambiguous. The
+         * higher this is, the more likely it is that you will see ambiguity flipping. Ambiguity flipping is when
+         * there are multiple possible "solutions" for the pose estimate, so if this is higher your estimate will
+         * be less reliable. The best way to reduce this it to make the april tag look as trapezoidal as possible
+         * from the Limelight's perspective. 
+         */
         public double ambiguity = 0;
-
 
         public RawFiducial(int id, double txnc, double tync, double ta, double distToCamera, double distToRobot, double ambiguity) {
             this.id = id;
@@ -488,56 +89,45 @@ public class TigerHelpers {
     }
 
     /**
-     * Represents a Limelight Raw Neural Detector result from Limelight's NetworkTables output.
-     */
-    public static class RawDetection {
-        public int classId = 0;
-        public double txnc = 0;
-        public double tync = 0;
-        public double ta = 0;
-        public double corner0_X = 0;
-        public double corner0_Y = 0;
-        public double corner1_X = 0;
-        public double corner1_Y = 0;
-        public double corner2_X = 0;
-        public double corner2_Y = 0;
-        public double corner3_X = 0;
-        public double corner3_Y = 0;
-
-
-        public RawDetection(int classId, double txnc, double tync, double ta, 
-            double corner0_X, double corner0_Y, 
-            double corner1_X, double corner1_Y, 
-            double corner2_X, double corner2_Y, 
-            double corner3_X, double corner3_Y ) {
-            this.classId = classId;
-            this.txnc = txnc;
-            this.tync = tync;
-            this.ta = ta;
-            this.corner0_X = corner0_X;
-            this.corner0_Y = corner0_Y;
-            this.corner1_X = corner1_X;
-            this.corner1_Y = corner1_Y;
-            this.corner2_X = corner2_X;
-            this.corner2_Y = corner2_Y;
-            this.corner3_X = corner3_X;
-            this.corner3_Y = corner3_Y;
-        }
-    }
-    
-    /**
      * Represents a 3D Pose Estimate.
      */
     public static class PoseEstimate {
+        /** 
+         * The estimated 2D pose of the robot, including position and rotation.
+         */
         public Pose2d pose;
+        /** 
+         * The timestamp of the pose estimate in seconds since the Limelight booted up.
+         */
         public double timestampSeconds;
+        /** 
+         * The latency of the pose estimate in milliseconds.
+         */
         public double latency;
+        /** 
+         * The number of april tags used to calculate the pose estimate.
+         */
         public int tagCount;
+        /** 
+         * The max distance, in meters, between april tags used to calculate the pose estimate.
+         */
         public double tagSpan;
+        /** 
+         * The average distance, in meters, between the Limelight and the april tags used to calculate 
+         * the pose estimate.
+         */
         public double avgTagDist;
+        /** 
+         * The average area, in meters squared, of april tags used to calculate the pose estimate.
+         */
         public double avgTagArea;
-
-        public RawFiducial[] rawFiducials; 
+        /** 
+         * An array of RawFiducial used to calculate the pose estimate.
+         */
+        public RawFiducial[] rawFiducials;
+        /**
+         * true if the pose estimate is calculated using MegaTag2, false if using MegaTag1.
+         */
         public boolean isMegaTag2;
 
         /**
@@ -614,7 +204,7 @@ public class TigerHelpers {
     static boolean profileJSON = false;
 
     static final String sanitizeName(String name) {
-        if ("".equals(name) || name == null) {
+        if (name == "" || name == null) {
             return "limelight";
         }
         return name;
@@ -1598,7 +1188,7 @@ public class TigerHelpers {
         try {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            if (snapshotName != null && !"".equals(snapshotName)) {
+            if (snapshotName != null && snapshotName != "") {
                 connection.setRequestProperty("snapname", snapshotName);
             }
 
