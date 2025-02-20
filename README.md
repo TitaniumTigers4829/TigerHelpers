@@ -1,9 +1,3 @@
-# Limelightlib (WPILIB Java)
-https://github.com/LimelightVision/limelightlib-wpijava/releases
+# TigerHelpers
 
-## Usage
-https://docs.limelightvision.io/docs/docs-limelight/apis/limelight-lib
-
-## JavaDocs
-https://limelightlib-wpijava-reference.limelightvision.io
-
+TigerHelpers is a refined version of [LimelightHelpers](https://github.com/LimelightVision/limelightlib-wpijava), aimed at being cleaner, better documented, and more focused on AprilTag detection. It will be kept up to date with any new Limelight features and includes additional helper methods aimed at making various things, such as unit testing, easier.
