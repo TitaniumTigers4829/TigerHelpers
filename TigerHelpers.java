@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -160,6 +161,21 @@ public class TigerHelpers {
             this.isMegaTag2 = isMegaTag2;
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            PoseEstimate that = (PoseEstimate) obj;
+            return Double.compare(that.timestampSeconds, timestampSeconds) == 0
+                && Double.compare(that.latency, latency) == 0
+                && tagCount == that.tagCount
+                && Double.compare(that.tagSpan, tagSpan) == 0
+                && Double.compare(that.avgTagDist, avgTagDist) == 0
+                && Double.compare(that.avgTagArea, avgTagArea) == 0
+                && pose.equals(that.pose)
+                && Arrays.equals(rawFiducials, that.rawFiducials);
+        }
+
     }
 
     /**
@@ -195,16 +211,10 @@ public class TigerHelpers {
         }
     }
 
-
     private static ObjectMapper mapper;
 
-    /**
-     * Print JSON Parse time to the console in milliseconds
-     */
-    static boolean profileJSON = false;
-
     static final String sanitizeName(String name) {
-        if (name == "" || name == null) {
+        if (name.equals("") || name.equals(null)) {
             return "limelight";
         }
         return name;
@@ -407,49 +417,6 @@ public class TigerHelpers {
         return rawDetections;
     }
 
-    /**
-     * Prints detailed information about a PoseEstimate to standard output.
-     * Includes timestamp, latency, tag count, tag span, average tag distance,
-     * average tag area, and detailed information about each detected fiducial.
-     *
-     * @param pose The PoseEstimate object to print. If null, prints "No PoseEstimate available."
-     */
-    public static void printPoseEstimate(PoseEstimate pose) {
-        if (pose == null) {
-            System.out.println("No PoseEstimate available.");
-            return;
-        }
-    
-        System.out.printf("Pose Estimate Information:%n");
-        System.out.printf("Timestamp (Seconds): %.3f%n", pose.timestampSeconds);
-        System.out.printf("Latency: %.3f ms%n", pose.latency);
-        System.out.printf("Tag Count: %d%n", pose.tagCount);
-        System.out.printf("Tag Span: %.2f meters%n", pose.tagSpan);
-        System.out.printf("Average Tag Distance: %.2f meters%n", pose.avgTagDist);
-        System.out.printf("Average Tag Area: %.2f%% of image%n", pose.avgTagArea);
-        System.out.printf("Is MegaTag2: %b%n", pose.isMegaTag2);
-        System.out.println();
-    
-        if (pose.rawFiducials == null || pose.rawFiducials.length == 0) {
-            System.out.println("No RawFiducials data available.");
-            return;
-        }
-    
-        System.out.println("Raw Fiducials Details:");
-        for (int i = 0; i < pose.rawFiducials.length; i++) {
-            RawFiducial fiducial = pose.rawFiducials[i];
-            System.out.printf(" Fiducial #%d:%n", i + 1);
-            System.out.printf("  ID: %d%n", fiducial.id);
-            System.out.printf("  TXNC: %.2f%n", fiducial.txnc);
-            System.out.printf("  TYNC: %.2f%n", fiducial.tync);
-            System.out.printf("  TA: %.2f%n", fiducial.ta);
-            System.out.printf("  Distance to Camera: %.2f meters%n", fiducial.distToCamera);
-            System.out.printf("  Distance to Robot: %.2f meters%n", fiducial.distToRobot);
-            System.out.printf("  Ambiguity: %.2f%n", fiducial.ambiguity);
-            System.out.println();
-        }
-    }
-
     public static Boolean validPoseEstimate(PoseEstimate pose) {
         return pose != null && pose.rawFiducials != null && pose.rawFiducials.length != 0;
     }
@@ -499,7 +466,6 @@ public class TigerHelpers {
         return getLimelightNTTableEntry(tableName, entryName).getStringArray(new String[0]);
     }
 
-
     public static URL getLimelightURLString(String tableName, String request) {
         String urlString = "http://" + sanitizeName(tableName) + ".local:5807/" + request;
         URL url;
@@ -511,8 +477,6 @@ public class TigerHelpers {
         }
         return null;
     }
-    /////
-    /////
 
     /**
      * Does the Limelight have a valid target?
@@ -593,52 +557,6 @@ public class TigerHelpers {
     }
 
     /**
-     * Gets the classifier class index from the currently running neural classifier pipeline
-     * @param limelightName Name of the Limelight camera
-     * @return Class index from classifier pipeline
-     */
-    public static int getClassifierClassIndex (String limelightName) {
-    double[] t2d = getT2DArray(limelightName);
-      if(t2d.length == 17)
-      {
-        return (int)t2d[10];
-      }
-      return 0;
-    }
-
-    /**
-     * Gets the detector class index from the primary result of the currently running neural detector pipeline.
-     * @param limelightName Name of the Limelight camera
-     * @return Class index from detector pipeline
-     */
-    public static int getDetectorClassIndex (String limelightName) {
-     double[] t2d = getT2DArray(limelightName);
-      if(t2d.length == 17)
-      {
-        return (int)t2d[11];
-      }
-      return 0;
-    }
-
-    /**
-     * Gets the current neural classifier result class name.
-     * @param limelightName Name of the Limelight camera
-     * @return Class name string from classifier pipeline
-     */
-    public static String getClassifierClass (String limelightName) {
-        return getLimelightNTString(limelightName, "tcclass");
-    }
-
-    /**
-     * Gets the primary neural detector result class name.
-     * @param limelightName Name of the Limelight camera
-     * @return Class name string from detector pipeline
-     */
-    public static String getDetectorClass (String limelightName) {
-        return getLimelightNTString(limelightName, "tdclass");
-    }
-
-    /**
      * Gets the pipeline's processing latency contribution.
      * @param limelightName Name of the Limelight camera
      * @return Pipeline latency in milliseconds
@@ -654,33 +572,6 @@ public class TigerHelpers {
      */
     public static double getLatency_Capture(String limelightName) {
         return getLimelightNTDouble(limelightName, "cl");
-    }
-
-    /**
-     * Gets the active pipeline index.
-     * @param limelightName Name of the Limelight camera
-     * @return Current pipeline index (0-9)
-     */
-    public static double getCurrentPipelineIndex(String limelightName) {
-        return getLimelightNTDouble(limelightName, "getpipe");
-    }
-
-    /**
-     * Gets the current pipeline type.
-     * @param limelightName Name of the Limelight camera
-     * @return Pipeline type string (e.g. "retro", "apriltag", etc)
-     */
-    public static String getCurrentPipelineType(String limelightName) {
-        return getLimelightNTString(limelightName, "getpipetype");
-    }
-
-    /**
-     * Gets the full JSON results dump.
-     * @param limelightName Name of the Limelight camera
-     * @return JSON string containing all current results
-     */
-    public static String getJSONDump(String limelightName) {
-        return getLimelightNTString(limelightName, "json");
     }
 
     /**
@@ -759,9 +650,6 @@ public class TigerHelpers {
     public static String[] getRawBarcodeData(String limelightName) {
         return getLimelightNTStringArray(limelightName, "rawbarcodes");
     }
-
-    /////
-    /////
 
     public static Pose3d getBotPose3d(String limelightName) {
         double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose");
@@ -935,37 +823,9 @@ public class TigerHelpers {
         }
         return new IMUData(imuData);
     }
-
-    /////
-    /////
-
-    public static void setPipelineIndex(String limelightName, int pipelineIndex) {
-        setLimelightNTDouble(limelightName, "pipeline", pipelineIndex);
-    }
-
     
     public static void setPriorityTagID(String limelightName, int ID) {
         setLimelightNTDouble(limelightName, "priorityid", ID);
-    }
-
-    /**
-     * Sets LED mode to be controlled by the current pipeline.
-     * @param limelightName Name of the Limelight camera
-     */
-    public static void setLEDMode_PipelineControl(String limelightName) {
-        setLimelightNTDouble(limelightName, "ledMode", 0);
-    }
-
-    public static void setLEDMode_ForceOff(String limelightName) {
-        setLimelightNTDouble(limelightName, "ledMode", 1);
-    }
-
-    public static void setLEDMode_ForceBlink(String limelightName) {
-        setLimelightNTDouble(limelightName, "ledMode", 2);
-    }
-
-    public static void setLEDMode_ForceOn(String limelightName) {
-        setLimelightNTDouble(limelightName, "ledMode", 3);
     }
 
     /**
@@ -1160,76 +1020,4 @@ public class TigerHelpers {
         setLimelightNTDoubleArray(limelightName, "camerapose_robotspace_set", entries);
     }
 
-    /////
-    /////
-
-    public static void setPythonScriptData(String limelightName, double[] outgoingPythonData) {
-        setLimelightNTDoubleArray(limelightName, "llrobot", outgoingPythonData);
-    }
-
-    public static double[] getPythonScriptData(String limelightName) {
-        return getLimelightNTDoubleArray(limelightName, "llpython");
-    }
-
-    /////
-    /////
-
-    /**
-     * Asynchronously take snapshot.
-     */
-    public static CompletableFuture<Boolean> takeSnapshot(String tableName, String snapshotName) {
-        return CompletableFuture.supplyAsync(() -> {
-            return SYNCH_TAKESNAPSHOT(tableName, snapshotName);
-        });
-    }
-
-    private static boolean SYNCH_TAKESNAPSHOT(String tableName, String snapshotName) {
-        URL url = getLimelightURLString(tableName, "capturesnapshot");
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-            if (snapshotName != null && snapshotName != "") {
-                connection.setRequestProperty("snapname", snapshotName);
-            }
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == 200) {
-                return true;
-            } else {
-                System.err.println("Bad LL Request");
-            }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        return false;
-    }
-
-    /**
-     * Gets the latest JSON results output and returns a LimelightResults object.
-     * @param limelightName Name of the Limelight camera
-     * @return LimelightResults object containing all current target data
-     */
-    public static LimelightResults getLatestResults(String limelightName) {
-
-        long start = System.nanoTime();
-        TigerHelpers.LimelightResults results = new TigerHelpers.LimelightResults();
-        if (mapper == null) {
-            mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        }
-
-        try {
-            results = mapper.readValue(getJSONDump(limelightName), LimelightResults.class);
-        } catch (JsonProcessingException e) {
-            results.error = "lljson error: " + e.getMessage();
-        }
-
-        long end = System.nanoTime();
-        double millis = (end - start) * .000001;
-        results.latency_jsonParse = millis;
-        if (profileJSON) {
-            System.out.printf("lljson: %.2f\r\n", millis);
-        }
-
-        return results;
-    }
 }
