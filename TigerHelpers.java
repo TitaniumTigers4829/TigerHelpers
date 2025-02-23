@@ -1,4 +1,4 @@
-// TigerHelpers v1.02 (REQUIRES LLOS 2025.0 OR LATER)
+// TigerHelpers v1.03 (REQUIRES LLOS 2025.0 OR LATER)
 
 package frc.robot.extras.vision;
 
@@ -479,7 +479,7 @@ public class TigerHelpers {
     return ntInstance.getTable(sanitizeName(tableName));
   }
 
-  public static void Flush() {
+  public static void flushNetworkTable() {
     ntInstance.flush();
   }
 
@@ -642,6 +642,7 @@ public class TigerHelpers {
    * @return Pose3d object representing the robot's position and orientation in Red Alliance field
    *     space
    */
+  @Deprecated
   public static Pose3d getBotPose3d_wpiRed(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_wpired");
     return toPose3D(poseArray);
@@ -654,6 +655,7 @@ public class TigerHelpers {
    * @return Pose3d object representing the robot's position and orientation in Blue Alliance field
    *     space
    */
+  @Deprecated
   public static Pose3d getBotPose3d_wpiBlue(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_wpiblue");
     return toPose3D(poseArray);
@@ -665,6 +667,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @return Pose3d object representing the robot's position and orientation relative to the target
    */
+  @Deprecated
   public static Pose3d getBotPose3d_TargetSpace(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "botpose_targetspace");
     return toPose3D(poseArray);
@@ -676,6 +679,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @return Pose3d object representing the camera's position and orientation relative to the target
    */
+  @Deprecated
   public static Pose3d getCameraPose3d_TargetSpace(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "camerapose_targetspace");
     return toPose3D(poseArray);
@@ -687,6 +691,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @return Pose3d object representing the target's position and orientation relative to the camera
    */
+  @Deprecated
   public static Pose3d getTargetPose3d_CameraSpace(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "targetpose_cameraspace");
     return toPose3D(poseArray);
@@ -698,6 +703,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @return Pose3d object representing the target's position and orientation relative to the robot
    */
+  @Deprecated
   public static Pose3d getTargetPose3d_RobotSpace(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "targetpose_robotspace");
     return toPose3D(poseArray);
@@ -709,6 +715,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @return Pose3d object representing the camera's position and orientation relative to the robot
    */
+  @Deprecated
   public static Pose3d getCameraPose3d_RobotSpace(String limelightName) {
     double[] poseArray = getLimelightNTDoubleArray(limelightName, "camerapose_robotspace");
     return toPose3D(poseArray);
@@ -1018,7 +1025,7 @@ public class TigerHelpers {
    * @param roll (Unnecessary) Robot roll in degrees
    * @param rollRate (Unnecessary) Angular velocity of robot roll in degrees per second
    */
-  public static void SetRobotOrientation(
+  public static void setRobotOrientation(
       String limelightName,
       double yaw,
       double yawRate,
@@ -1026,32 +1033,6 @@ public class TigerHelpers {
       double pitchRate,
       double roll,
       double rollRate) {
-    SetRobotOrientation_INTERNAL(
-        limelightName, yaw, yawRate, pitch, pitchRate, roll, rollRate, true);
-  }
-
-  public static void SetRobotOrientation_NoFlush(
-      String limelightName,
-      double yaw,
-      double yawRate,
-      double pitch,
-      double pitchRate,
-      double roll,
-      double rollRate) {
-    SetRobotOrientation_INTERNAL(
-        limelightName, yaw, yawRate, pitch, pitchRate, roll, rollRate, false);
-  }
-
-  private static void SetRobotOrientation_INTERNAL(
-      String limelightName,
-      double yaw,
-      double yawRate,
-      double pitch,
-      double pitchRate,
-      double roll,
-      double rollRate,
-      boolean flush) {
-
     double[] entries = new double[6];
     entries[0] = yaw;
     entries[1] = yawRate;
@@ -1060,9 +1041,7 @@ public class TigerHelpers {
     entries[4] = roll;
     entries[5] = rollRate;
     setLimelightNTDoubleArray(limelightName, "robot_orientation_set", entries);
-    if (flush) {
-      Flush();
-    }
+    flushNetworkTable();
   }
 
   /**
@@ -1071,7 +1050,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @param mode IMU mode.
    */
-  public static void SetIMUMode(String limelightName, int mode) {
+  public static void setIMUMode(String limelightName, int mode) {
     setLimelightNTDouble(limelightName, "imumode_set", mode);
   }
 
@@ -1084,7 +1063,7 @@ public class TigerHelpers {
    * @param y Y offset in meters
    * @param z Z offset in meters
    */
-  public static void SetFidcuial3DOffset(String limelightName, double x, double y, double z) {
+  public static void setFidcuial3DOffset(String limelightName, double x, double y, double z) {
 
     double[] entries = new double[3];
     entries[0] = x;
@@ -1100,7 +1079,7 @@ public class TigerHelpers {
    * @param limelightName Name/identifier of the Limelight
    * @param validIDs Array of valid AprilTag IDs to track
    */
-  public static void SetFiducialIDFiltersOverride(String limelightName, int[] validIDs) {
+  public static void setFiducialIDFiltersOverride(String limelightName, int[] validIDs) {
     double[] validIDsDouble = new double[validIDs.length];
     for (int i = 0; i < validIDs.length; i++) {
       validIDsDouble[i] = validIDs[i];
@@ -1116,7 +1095,7 @@ public class TigerHelpers {
    * @param downscale Downscale factor. Valid values: 1.0 (no downscale), 1.5, 2.0, 3.0, 4.0. Set to
    *     0 for pipeline control.
    */
-  public static void SetFiducialDownscalingOverride(String limelightName, float downscale) {
+  public static void setFiducialDownscalingOverride(String limelightName, float downscale) {
     int d = 0; // pipeline
     if (downscale == 1.0) {
       d = 1;
@@ -1147,7 +1126,7 @@ public class TigerHelpers {
    * @param pitch Pitch angle in degrees
    * @param yaw Yaw angle in degrees
    */
-  public static void setCameraPose_RobotSpace(
+  public static void setCameraPoseRobotSpace(
       String limelightName,
       double forward,
       double side,
