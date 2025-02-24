@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'com.diffplug.spotless' version '6.25.0'
+}
+
+group = 'org.example'        // Change as needed
+version = '1.0-SNAPSHOT'     // Change as needed
+
+repositories {
+    mavenCentral()
+    // Add the WPILib repository
+    maven {
+        url = "https://frcmaven.wpi.edu/release"
+    }
+    // You can add other repositories as needed
+}
+
+
+dependencies {
+    // Example WPILib libraries (Java versions)
+    implementation "edu.wpi.first.ntcore:ntcore-java:2025.3.1"
+    implementation "edu.wpi.first.wpiutil:wpiutil-java:2025.3.1"
+    implementation "edu.wpi.first.wpilibj:wpilibj-java:2025.3.1"
+    implementation "edu.wpi.first.wpimath:wpimath-java:2025.3.1"
+    implementation "edu.wpi.first.wpinet:wpinet-java:2025.3.1"
+    implementation "edu.wpi.first.wpiunits:wpiunits-java:2025.3.1"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.15.2"
+}
+
+spotless {
+    java {
+        // Use Google Java Format
+        googleJavaFormat()
+
+        // Additional format steps
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// Tell Gradle that our source code is in the project root, not in src/main/java
+sourceSets {
+    main {
+        java {
+            setSrcDirs(['.'])   // The dot means "use current directory"
+            // Exclude the build folder so we don't accidentally compile generated stuff
+            exclude('build/**')
+        }
+    }
+}
+
+task generateDocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+    destinationDir = file("$projectDir/docs")
+    classpath = sourceSets.main.compileClasspath
+}
+
+
+// Force compileJava to run spotlessApply and generateDocs first
+compileJava.dependsOn 'spotlessApply', 'generateDocs'
