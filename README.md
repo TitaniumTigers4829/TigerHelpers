@@ -19,7 +19,7 @@ Eventually, there will be better docs and examples, but for now theres [Javadoc]
 ### Cloning and Building
 1. Clone the repository:
    ```sh
-   git clone <repository-url>
+   git clone https://github.com/TitaniumTigers4829/TigerHelpers.git
    cd TigerHelpers
    ```
 2. Build the project:
