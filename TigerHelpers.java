@@ -31,7 +31,7 @@ public class TigerHelpers {
   private static final Map<String, DoubleArrayEntry> doubleArrayEntries = new ConcurrentHashMap<>();
 
   /** Represents a Limelight Raw Fiducial result from Limelight's NetworkTables output. */
-  public static class RawFiducial {
+  public record RawFiducial {
     /** The id of the april tag */
     public int id = 0;
 
@@ -120,7 +120,7 @@ public class TigerHelpers {
    * Represents a Limelight pose estimate from Limelight's NetworkTables output. This is for any
    * botpose estimate, so MegaTag1 or MegaTag2
    */
-  public static class PoseEstimate {
+  public record PoseEstimate {
     /** The estimated 2D pose of the robot, including position and rotation. */
     public Pose2d pose;
 
@@ -153,15 +153,16 @@ public class TigerHelpers {
 
     /** Initializes an "empty" PoseEstimate object with default values */
     public PoseEstimate() {
-      this.pose = new Pose2d();
-      this.timestampSeconds = 0;
-      this.latency = 0;
-      this.tagCount = 0;
-      this.tagSpan = 0;
-      this.avgTagDist = 0;
-      this.avgTagArea = 0;
-      this.rawFiducials = new RawFiducial[] {};
-      this.isMegaTag2 = false;
+      this(new Pose2d(), 0, 0, 0, 0, 0, 0, new RawFiducial[0], false);
+    }
+
+    /**
+     * Returns an empty PoseEstimate.
+     *
+     * @return a PoseEstimate with default values
+     */
+    public static PoseEstimate empty() {
+      return new PoseEstimate();
     }
 
     /**
@@ -1027,33 +1028,33 @@ public class TigerHelpers {
     // Because network tables don't support 2D arrays, we need to flatten the data into a 1D array
     // Calculates array size: 11 (for PoseEstimate data) + 7 * number of fiducials (for each raw
     // fiducial)
-    int fiducialCount = poseEstimate.rawFiducials.length;
+    int fiducialCount = poseEstimate.rawFiducials().length;
     double[] data = new double[11 + 7 * fiducialCount];
 
     // Populates the PoseEstimate, matching unpackBotPoseEstimate
-    data[0] = poseEstimate.pose.getX(); // x
-    data[1] = poseEstimate.pose.getY(); // y
+    data[0] = poseEstimate.pose().getX(); // x
+    data[1] = poseEstimate.pose().getY(); // y
     data[2] = 0.0; // z (Pose2d doesn't use this)
     data[3] = 0.0; // roll (not used)
     data[4] = 0.0; // pitch (not used)
-    data[5] = poseEstimate.pose.getRotation().getDegrees(); // yaw
-    data[6] = poseEstimate.latency; // latency
+    data[5] = poseEstimate.pose().getRotation().getDegrees(); // yaw
+    data[6] = poseEstimate.latency(); // latency
     data[7] = fiducialCount; // tagCount (must match fiducials length)
-    data[8] = poseEstimate.tagSpan; // tagSpan
-    data[9] = poseEstimate.avgTagDist; // avgTagDist
-    data[10] = poseEstimate.avgTagArea; // avgTagArea
+    data[8] = poseEstimate.tagSpan(); // tagSpan
+    data[9] = poseEstimate.avgTagDist(); // avgTagDist
+    data[10] = poseEstimate.avgTagArea(); // avgTagArea
 
     // Add data for each fiducial
     for (int i = 0; i < fiducialCount; i++) {
       int baseIndex = 11 + (i * 7);
-      RawFiducial fid = poseEstimate.rawFiducials[i];
-      data[baseIndex] = fid.id; // id (cast to double)
-      data[baseIndex + 1] = fid.txnc; // txnc
-      data[baseIndex + 2] = fid.tync; // tync
-      data[baseIndex + 3] = fid.ta; // ta
-      data[baseIndex + 4] = fid.distToCamera; // distToCamera
-      data[baseIndex + 5] = fid.distToRobot; // distToRobot
-      data[baseIndex + 6] = fid.ambiguity; // ambiguity
+      RawFiducial fid = poseEstimate.rawFiducials()[i];
+      data[baseIndex] = fid.id(); // id (cast to double)
+      data[baseIndex + 1] = fid.txnc(); // txnc
+      data[baseIndex + 2] = fid.tync(); // tync
+      data[baseIndex + 3] = fid.ta(); // ta
+      data[baseIndex + 4] = fid.distToCamera(); // distToCamera
+      data[baseIndex + 5] = fid.distToRobot(); // distToRobot
+      data[baseIndex + 6] = fid.ambiguity(); // ambiguity
     }
 
     // Write the array to NetworkTables
