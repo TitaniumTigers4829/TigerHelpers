@@ -713,30 +713,6 @@ public class TigerHelpers {
     return getLimelightNetworkTableDoubleArray(limelightName, "botpose");
   }
 
-  public static double[] getBotPose_wpiRed(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "botpose_wpired");
-  }
-
-  public static double[] getBotPose_wpiBlue(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "botpose_wpiblue");
-  }
-
-  public static double[] getBotPose_TargetSpace(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "botpose_targetspace");
-  }
-
-  public static double[] getCameraPose_TargetSpace(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "camerapose_targetspace");
-  }
-
-  public static double[] getTargetPose_CameraSpace(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "targetpose_cameraspace");
-  }
-
-  public static double[] getTargetPose_RobotSpace(String limelightName) {
-    return getLimelightNetworkTableDoubleArray(limelightName, "targetpose_robotspace");
-  }
-
   public static double getFiducialID(String limelightName) {
     return getLimelightNetworkTableDouble(limelightName, "tid");
   }
