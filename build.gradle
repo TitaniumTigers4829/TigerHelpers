@@ -24,7 +24,7 @@ repositories {
 ext {
     wpilibVersion = "$wpilibVersion"
     groupId = "com.titaniumtigers4829"
-    artifactId = "TigerHelpers"
+    artifactId = "tigerhelpers"
     version = "1.0.3"
 }
 
@@ -63,21 +63,21 @@ compileJava.dependsOn "spotlessApply", "generateDocs"
 
 // Configure publishing
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId = "com.titaniumtigers4829"
-            artifactId = "TigerHelpers"
-            version = "1.0.3"
-            from components.java
-        }
-    }
     repositories {
         maven {
             url = "https://maven.pkg.github.com/TitaniumTigers4829/TigerHelpers"
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
-            }
+                username = project.findProperty("githubUsername") ?: "default"
+                password = project.findProperty("githubToken") ?: "default"
+            }         
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.titaniumtigers4829"
+            artifactId = "tigerhelpers"
+            version = "1.0.3"
+            from components.java
         }
     }
 }
