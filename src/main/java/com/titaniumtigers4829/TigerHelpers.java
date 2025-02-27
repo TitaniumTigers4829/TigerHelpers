@@ -872,18 +872,6 @@ public class TigerHelpers {
   }
 
   /**
-   * Gets the Pose2d for easy use with Odometry vision pose estimator (addVisionMeasurement)
-   *
-   * @param limelightName
-   * @return
-   */
-  @Deprecated
-  public static Pose2d getBotPose2d_wpiBlue(String limelightName) {
-    double[] result = getBotPose_wpiBlue(limelightName);
-    return toPose2D(result);
-  }
-
-  /**
    * Gets the MegaTag1 Pose2d and timestamp for use with WPILib pose estimator
    * (addVisionMeasurement) in the WPILib Blue alliance coordinate system.
    *
@@ -906,18 +894,6 @@ public class TigerHelpers {
   @Deprecated
   public static PoseEstimate getBotPoseEstimate_wpiBlue_MegaTag2(String limelightName) {
     return unpackBotPoseEstimate(limelightName, "botpose_orb_wpiblue", true);
-  }
-
-  /**
-   * Gets the Pose2d for easy use with Odometry vision pose estimator (addVisionMeasurement)
-   *
-   * @param limelightName
-   * @return
-   */
-  @Deprecated
-  public static Pose2d getBotPose2d_wpiRed(String limelightName) {
-    double[] result = getBotPose_wpiRed(limelightName);
-    return toPose2D(result);
   }
 
   /**
