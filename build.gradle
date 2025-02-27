@@ -76,7 +76,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = "com.titaniumtigers4829"
             artifactId = "tigerhelpers"
-            version = "1.0.3"
+            version = "1.0.4"
             from components.java
         }
     }
