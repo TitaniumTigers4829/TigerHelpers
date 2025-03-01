@@ -25,11 +25,14 @@ public record IMUData(
     /** The Y-axis acceleration in m/s^2. */
     double accelY,
     /** The Z-axis acceleration in m/s^2. */
-    double accelZ) {
+    double accelZ,
+    /** The IMUMode the IMU is set to. */
+    IMUMode imuMode
+    ) {
 
   /** Initializes an "empty" IMUData record with default values */
   public IMUData() {
-    this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, IMUMode.EXTERNAL_IMU);
   }
 
   /**

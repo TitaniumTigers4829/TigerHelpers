@@ -377,13 +377,13 @@ public class TigerHelpers {
     for (int i = 0; i < fiducialCount; i++) {
       int baseIndex = 11 + (i * 7);
       RawFiducial fid = poseEstimate.rawFiducials()[i];
-      data[baseIndex] = fid.id; // id (cast to double)
-      data[baseIndex + 1] = fid.txnc; // txnc
-      data[baseIndex + 2] = fid.tync; // tync
-      data[baseIndex + 3] = fid.ta; // ta
-      data[baseIndex + 4] = fid.distToCamera; // distToCamera
-      data[baseIndex + 5] = fid.distToRobot; // distToRobot
-      data[baseIndex + 6] = fid.ambiguity; // ambiguity
+      data[baseIndex] = fid.id(); // id (cast to double)
+      data[baseIndex + 1] = fid.txnc(); // txnc
+      data[baseIndex + 2] = fid.tync(); // tync
+      data[baseIndex + 3] = fid.ta(); // ta
+      data[baseIndex + 4] = fid.distToCamera(); // distToCamera
+      data[baseIndex + 5] = fid.distToRobot(); // distToRobot
+      data[baseIndex + 6] = fid.ambiguity(); // ambiguity
     }
 
     // Write the array to NetworkTables
@@ -416,13 +416,13 @@ public class TigerHelpers {
     for (int i = 0; i < rawFiducials.length; i++) {
       int baseIndex = i * 7;
       RawFiducial fid = rawFiducials[i];
-      data[baseIndex] = (double) fid.id;
-      data[baseIndex + 1] = fid.txnc;
-      data[baseIndex + 2] = fid.tync;
-      data[baseIndex + 3] = fid.ta;
-      data[baseIndex + 4] = fid.distToCamera;
-      data[baseIndex + 5] = fid.distToRobot;
-      data[baseIndex + 6] = fid.ambiguity;
+      data[baseIndex] = (double) fid.id();
+      data[baseIndex + 1] = fid.txnc();
+      data[baseIndex + 2] = fid.tync();
+      data[baseIndex + 3] = fid.ta();
+      data[baseIndex + 4] = fid.distToCamera();
+      data[baseIndex + 5] = fid.distToRobot();
+      data[baseIndex + 6] = fid.ambiguity();
     }
 
     entry.setDoubleArray(data);
@@ -438,6 +438,7 @@ public class TigerHelpers {
    */
   public static IMUData getIMUData(String limelightName) {
     double[] imuData = NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "imu");
+    IMUMode imuMode = IMUMode.fromValue((int) NTUtils.getLimelightNetworkTableDouble(limelightName, "imumode_set"));
     if (imuData == null || imuData.length < 10) {
       return new IMUData(); // Returns object with all zeros
     }
@@ -451,7 +452,9 @@ public class TigerHelpers {
         imuData[6],
         imuData[7],
         imuData[8],
-        imuData[9]);
+        imuData[9],
+        imuMode
+        );
   }
 
   /**
