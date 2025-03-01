@@ -8,6 +8,81 @@ import java.util.Arrays;
  * botpose estimate, so MegaTag1 or MegaTag2
  */
 public class PoseEstimate {
+
+  /**
+   * This enum represents the different types of botpose data that can be retrieved from the
+   * Limelight. Each constant corresponds to a specific NetworkTables entry name and indicates
+   * whether it uses the MegaTag2 algorithm or the original MegaTag1 algorithm for pose estimation.
+   */
+  public enum Botpose {
+    /**
+     * Botpose data for the blue alliance using the MegaTag1 algorithm. Retrieved from the
+     * "botpose_wpiblue" NetworkTables entry.
+     */
+    BLUE_MEGATAG1("botpose_wpiblue", false),
+
+    /**
+     * Botpose data for the blue alliance using the MegaTag2 algorithm. Retrieved from the
+     * "botpose_orb_wpiblue" NetworkTables entry.
+     */
+    BLUE_MEGATAG2("botpose_orb_wpiblue", true),
+
+    /**
+     * Botpose data for the red alliance using the MegaTag1 algorithm. Retrieved from the
+     * "botpose_wpired" NetworkTables entry.
+     */
+    RED_MEGATAG1("botpose_wpired", false),
+
+    /**
+     * Botpose data for the red alliance using the MegaTag2 algorithm. Retrieved from the
+     * "botpose_orb_wpired" NetworkTables entry.
+     */
+    RED_MEGATAG2("botpose_orb_wpired", true);
+
+    private final String entryName;
+
+    private final boolean isMegaTag2;
+
+    Botpose(String entryName, boolean isMegaTag2) {
+      this.entryName = entryName;
+      this.isMegaTag2 = isMegaTag2;
+    }
+
+    /**
+     * Gets the entry name for the botpose type. This is the name of the network table entry that
+     * contains the botpose data.
+     *
+     * @return The network table entry name
+     */
+    public String getEntryName() {
+      return entryName;
+    }
+
+    /**
+     * Gets the botpose type from the entry name.
+     *
+     * @param entryName The entry name to get the botpose type for
+     * @return The botpose type, or null if the entry name is not recognized
+     */
+    public static Botpose fromEntryName(String entryName) {
+      for (Botpose botpose : Botpose.values()) {
+        if (botpose.getEntryName().equals(entryName)) {
+          return botpose;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Gets if the botpose is calculated using MegaTag2.
+     *
+     * @return True if the botpose is calculated using MegaTag2, false if using MegaTag1
+     */
+    public boolean isMegaTag2() {
+      return isMegaTag2;
+    }
+  }
+
   /** The estimated 2D pose of the robot, including position and rotation. */
   public Pose2d pose;
 
@@ -38,17 +113,12 @@ public class PoseEstimate {
   /** true if the pose estimate is calculated using MegaTag2, false if using MegaTag1. */
   public boolean isMegaTag2;
 
+  /** The botpose data type used to calculate the pose estimate. */
+  public Botpose botpose;
+
   /** Initializes an "empty" PoseEstimate object with default values */
   public PoseEstimate() {
-    this.pose = new Pose2d();
-    this.timestampSeconds = 0;
-    this.latency = 0;
-    this.tagCount = 0;
-    this.tagSpan = 0;
-    this.avgTagDist = 0;
-    this.avgTagArea = 0;
-    this.rawFiducials = new RawFiducial[] {};
-    this.isMegaTag2 = false;
+    this(new Pose2d(), 0, 0, 0, 0, 0, 0, new RawFiducial[0], false, Botpose.BLUE_MEGATAG1);
   }
 
   /**
@@ -78,7 +148,8 @@ public class PoseEstimate {
       double avgTagDist,
       double avgTagArea,
       RawFiducial[] rawFiducials,
-      boolean isMegaTag2) {
+      boolean isMegaTag2,
+      Botpose botpose) {
 
     this.pose = pose;
     this.timestampSeconds = timestampSeconds;
@@ -89,6 +160,7 @@ public class PoseEstimate {
     this.avgTagArea = avgTagArea;
     this.rawFiducials = rawFiducials;
     this.isMegaTag2 = isMegaTag2;
+    this.botpose = botpose;
   }
 
   @Override
@@ -140,4 +212,6 @@ public class PoseEstimate {
         + isMegaTag2
         + '}';
   }
+
+  
 }
