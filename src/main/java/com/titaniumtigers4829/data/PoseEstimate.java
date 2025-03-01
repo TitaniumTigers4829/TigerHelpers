@@ -213,5 +213,13 @@ public class PoseEstimate {
         + '}';
   }
 
-  
+  /**
+   * Checks if the PoseEstimate is valid. If this is true, it means the PoseEstimate is has valid
+   * data from at least one april tag.
+   *
+   * @return True if the PoseEstimate is valid, false otherwise
+   */
+  public boolean validPoseEstimate() {
+    return this.rawFiducials != null && this.rawFiducials.length != 0;
+  }
 }
