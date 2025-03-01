@@ -3,7 +3,34 @@ package com.titaniumtigers4829.data;
 /**
  * Encapsulates the state of an internal Limelight IMU. This includes gyro and accelerometer data.
  */
-public class IMUData {
+public record IMUData(
+    // TODO: these javadoc comments could be incorrect, I guessed accel is in m/s^2, but could be
+    // gs, also I'm not sure if roll and pitch are for the robot or the imu
+    /** The yaw of the robot in degrees. */
+    double robotYaw,
+    /** The pitch of the IMU in degrees. */
+    double roll,
+    /** The roll of the IMU in degrees. */
+    double pitch,
+    /** The yaw of the IMU in degrees. */
+    double yaw,
+    /** The X-axis gyro rate in degrees per second. */
+    double gyroX,
+    /** The Y-axis gyro rate in degrees per second. */
+    double gyroY,
+    /** The Z-axis gyro rate in degrees per second. */
+    double gyroZ,
+    /** The X-axis acceleration in m/s^2. */
+    double accelX,
+    /** The Y-axis acceleration in m/s^2. */
+    double accelY,
+    /** The Z-axis acceleration in m/s^2. */
+    double accelZ) {
+
+  /** Initializes an "empty" IMUData record with default values */
+  public IMUData() {
+    this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  }
 
   /**
    * Enum representing different IMU usage modes for robot orientation or localization. Defines how
@@ -67,59 +94,5 @@ public class IMUData {
       }
       return null;
     }
-  }
-
-  public double robotYaw;
-  public double roll;
-  public double pitch;
-  public double yaw;
-  public double gyroX;
-  public double gyroY;
-  public double gyroZ;
-  public double accelX;
-  public double accelY;
-  public double accelZ;
-
-  /** Initializes an "empty" IMUData object with default values */
-  public IMUData() {
-    this(0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-  }
-
-  /**
-   * Initializes an IMUData object with the provided IMU data array.
-   *
-   * @param robotYaw The yaw of the robot in degrees
-   * @param roll The roll of the robot in degrees
-   * @param pitch The pitch of the robot in degrees
-   * @param yaw The yaw of the IMU in degrees
-   * @param gyroX The x-axis gyro value in degrees per second
-   * @param gyroY The y-axis gyro value in degrees per second
-   * @param gyroZ The z-axis gyro value in degrees per second TODO: figure out what units the
-   *     accelerometer values are in (maybe Gs?)
-   * @param accelX The x-axis accelerometer value in meters per second squared
-   * @param accelY The y-axis accelerometer value in meters per second squared
-   * @param accelZ The z-axis accelerometer value in meters per second squared
-   */
-  public IMUData(
-      double robotYaw,
-      double roll,
-      double pitch,
-      double yaw,
-      double gyroX,
-      double gyroY,
-      double gyroZ,
-      double accelX,
-      double accelY,
-      double accelZ) {
-    this.robotYaw = robotYaw;
-    this.roll = roll;
-    this.pitch = pitch;
-    this.yaw = yaw;
-    this.gyroX = gyroX;
-    this.gyroY = gyroY;
-    this.gyroZ = gyroZ;
-    this.accelX = accelX;
-    this.accelY = accelY;
-    this.accelZ = accelZ;
   }
 }
