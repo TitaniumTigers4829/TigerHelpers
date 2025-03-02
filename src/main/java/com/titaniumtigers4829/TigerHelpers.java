@@ -1,4 +1,4 @@
-// TigerHelpers v1.05 (REQUIRES LLOS 2025.0 OR LATER)
+// TigerHelpers v1.1.0 (REQUIRES LLOS 2025.0 OR LATER)
 
 package com.titaniumtigers4829;
 
