@@ -8,7 +8,7 @@ As of right now, the installation process is the same as LimelightHelpers. Go to
 
 ## Documentation
 
-Eventually, there will be better docs and examples, but for now theres [Javadoc](http://titaniumtigers4829.com/TigerHelpers/frc/robot/extras/vision/package-summary.html)
+Eventually, there will be better docs and examples, but for now theres [Javadoc](http://titaniumtigers4829.com/TigerHelpers/com/titaniumtigers4829/package-summary.html)
 
 ## Setup Instructions (Only do this if you want to help contribute)
 

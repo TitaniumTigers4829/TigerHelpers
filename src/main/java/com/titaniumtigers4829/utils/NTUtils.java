@@ -1,7 +1,5 @@
 package com.titaniumtigers4829.utils;
 
-import com.titaniumtigers4829.data.PoseEstimate;
-import com.titaniumtigers4829.data.RawFiducial;
 import edu.wpi.first.networktables.DoubleArrayEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -108,8 +106,8 @@ public class NTUtils {
 
   /**
    * Sets a NetworkTableEntry from a Limelight camera as a double array. If you want to the network
-   * table array for a {@link PoseEstimate}, use {@link #setBotPoseEstimate(PoseEstimate, String)},
-   * if for the {@link RawFiducial}s use {@link #setRawFiducials(RawFiducial[], String)}.
+   * table array for a PoseEstimate, use setBotPoseEstimate(PoseEstimate, String), if for the
+   * RawFiducials use setRawFiducials(RawFiducial[], String).
    *
    * @param tableName The name of the Limelight set in the UI ("" for default)
    * @param entryName Name of the entry to set
