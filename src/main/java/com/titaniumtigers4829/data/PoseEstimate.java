@@ -129,7 +129,7 @@ public record PoseEstimate(
    *
    * @return True if the PoseEstimate is valid, false otherwise
    */
-  public boolean validPoseEstimate() {
+  public boolean isValidPoseEstimate() {
     return rawFiducials != null && rawFiducials.length != 0;
   }
 }

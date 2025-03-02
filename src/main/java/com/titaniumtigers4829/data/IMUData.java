@@ -27,8 +27,7 @@ public record IMUData(
     /** The Z-axis acceleration in m/s^2. */
     double accelZ,
     /** The IMUMode the IMU is set to. */
-    IMUMode imuMode
-    ) {
+    IMUMode imuMode) {
 
   /** Initializes an "empty" IMUData record with default values */
   public IMUData() {

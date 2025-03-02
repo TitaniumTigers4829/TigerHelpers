@@ -438,7 +438,9 @@ public class TigerHelpers {
    */
   public static IMUData getIMUData(String limelightName) {
     double[] imuData = NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "imu");
-    IMUMode imuMode = IMUMode.fromValue((int) NTUtils.getLimelightNetworkTableDouble(limelightName, "imumode_set"));
+    IMUMode imuMode =
+        IMUMode.fromValue(
+            (int) NTUtils.getLimelightNetworkTableDouble(limelightName, "imumode_set"));
     if (imuData == null || imuData.length < 10) {
       return new IMUData(); // Returns object with all zeros
     }
@@ -453,8 +455,7 @@ public class TigerHelpers {
         imuData[7],
         imuData[8],
         imuData[9],
-        imuMode
-        );
+        imuMode);
   }
 
   /**
@@ -579,6 +580,17 @@ public class TigerHelpers {
    */
   public static void setLimelightThrottle(String limelightName, int throttle) {
     NTUtils.setLimelightNetworkTableDouble(limelightName, "throttle_set", throttle);
+  }
+
+  /**
+   * Configures the complementary filter alpha value for IMU Assist Modes (Modes 3 and 4)
+   *
+   * @param limelightName The name of the Limelight set in the UI ("" for default)
+   * @param alpha Defaults to .001. Higher values will cause the internal IMU to converge onto the
+   *     assist source more rapidly.
+   */
+  public static void setIMUAssistAlpha(String limelightName, double alpha) {
+    NTUtils.setLimelightNetworkTableDouble(limelightName, "imuassistalpha_set", alpha);
   }
 
   /**
