@@ -4,7 +4,10 @@ TigerHelpers is a refined version of [LimelightHelpers](https://github.com/Limel
 
 ## Download For Your Robot
 
-As of right now, the installation process is the same as LimelightHelpers. Go to [Releases](https://github.com/TitaniumTigers4829/TigerHelpers/releases), download `TigerHelpers.java` and paste it into your project.
+Add the vendor dep to your project: 
+```
+http://titaniumtigers4829.com/tigerhelpers.json
+```
 
 ## Documentation
 
