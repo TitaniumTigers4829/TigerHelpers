@@ -5,5 +5,5 @@ public class FiducialConstants {
 
   private FiducialConstants() {}
 
-  public static final int FIDUCIAL_MULTIPLIER = 7;
+  public static final int FIDUCIAL_DATA_SIZE = 7;
 }

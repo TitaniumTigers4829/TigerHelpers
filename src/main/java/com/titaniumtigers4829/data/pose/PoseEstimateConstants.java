@@ -5,5 +5,5 @@ public class PoseEstimateConstants {
 
   private PoseEstimateConstants() {}
 
-  public static final int POSE_ESTIMATE_SIZE = 11;
+  public static final int POSE_ESTIMATE_DATA_SIZE = 11;
 }

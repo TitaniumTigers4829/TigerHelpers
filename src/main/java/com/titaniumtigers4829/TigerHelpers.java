@@ -122,15 +122,15 @@ public class TigerHelpers {
     NetworkTableEntry entry =
         NTUtils.getLimelightNetworkTableEntry(limelightName, NetworkTablesEntries.RAW_FIDUCIALS);
     double[] rawFiducialArray = entry.getDoubleArray(new double[0]);
-    if (rawFiducialArray.length % FiducialConstants.FIDUCIAL_MULTIPLIER != 0) {
+    if (rawFiducialArray.length % FiducialConstants.FIDUCIAL_DATA_SIZE != 0) {
       return new RawFiducial[0];
     }
 
-    int numFiducials = rawFiducialArray.length / FiducialConstants.FIDUCIAL_MULTIPLIER;
+    int numFiducials = rawFiducialArray.length / FiducialConstants.FIDUCIAL_DATA_SIZE;
     RawFiducial[] rawFiducials = new RawFiducial[numFiducials];
 
     for (int i = 0; i < numFiducials; i++) {
-      int baseIndex = i * FiducialConstants.FIDUCIAL_MULTIPLIER;
+      int baseIndex = i * FiducialConstants.FIDUCIAL_DATA_SIZE;
       int id = (int) DataUtils.extractArrayEntry(rawFiducialArray, baseIndex);
       double txnc = DataUtils.extractArrayEntry(rawFiducialArray, baseIndex + 1);
       double tync = DataUtils.extractArrayEntry(rawFiducialArray, baseIndex + 2);
@@ -377,8 +377,8 @@ public class TigerHelpers {
     int fiducialCount = poseEstimate.rawFiducials().length;
     double[] data =
         new double
-            [PoseEstimateConstants.POSE_ESTIMATE_SIZE
-                + FiducialConstants.FIDUCIAL_MULTIPLIER * fiducialCount];
+            [PoseEstimateConstants.POSE_ESTIMATE_DATA_SIZE
+                + FiducialConstants.FIDUCIAL_DATA_SIZE * fiducialCount];
 
     // Populates the PoseEstimate, matching DataUtils.unpackBotPoseEstimate
     data[0] = poseEstimate.pose().getX(); // x
@@ -396,7 +396,8 @@ public class TigerHelpers {
     // Add data for each fiducial
     for (int i = 0; i < fiducialCount; i++) {
       int baseIndex =
-          PoseEstimateConstants.POSE_ESTIMATE_SIZE + (i * FiducialConstants.FIDUCIAL_MULTIPLIER);
+          PoseEstimateConstants.POSE_ESTIMATE_DATA_SIZE
+              + (i * FiducialConstants.FIDUCIAL_DATA_SIZE);
       RawFiducial fid = poseEstimate.rawFiducials()[i];
       data[baseIndex] = fid.id(); // id (cast to double)
       data[baseIndex + 1] = fid.txnc(); // txnc
@@ -433,10 +434,10 @@ public class TigerHelpers {
   public static void setRawFiducials(RawFiducial[] rawFiducials, String limelightName) {
     NetworkTableEntry entry =
         NTUtils.getLimelightNetworkTableEntry(limelightName, NetworkTablesEntries.RAW_FIDUCIALS);
-    double[] data = new double[rawFiducials.length * FiducialConstants.FIDUCIAL_MULTIPLIER];
+    double[] data = new double[rawFiducials.length * FiducialConstants.FIDUCIAL_DATA_SIZE];
 
     for (int i = 0; i < rawFiducials.length; i++) {
-      int baseIndex = i * FiducialConstants.FIDUCIAL_MULTIPLIER;
+      int baseIndex = i * FiducialConstants.FIDUCIAL_DATA_SIZE;
       RawFiducial fid = rawFiducials[i];
       data[baseIndex] = (double) fid.id();
       data[baseIndex + 1] = fid.txnc();

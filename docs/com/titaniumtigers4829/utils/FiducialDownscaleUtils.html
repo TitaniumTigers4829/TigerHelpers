@@ -118,12 +118,18 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="convertDownscale(float)">
 <h3>convertDownscale</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">convertDownscale</span><wbr><span class="parameters">(float&nbsp;downscale)</span></div>
-<div class="block">Downscale ceiling convertor</div>
+<div class="block">Downscale ceiling convertor
+
+ <p>Compares incoming float downscale value to float values in the map (keys) and returns the
+ map integer value of matched one.
+
+ <p>If incoming downscale value does not match the defines in the map (which should never happen
+ but just in case) default value 1 will be returned</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>downscale</code> - raw float</dd>
 <dt>Returns:</dt>
-<dd>int downscale, default 0</dd>
+<dd>int downscale, default 1</dd>
 </dl>
 </section>
 </li>
