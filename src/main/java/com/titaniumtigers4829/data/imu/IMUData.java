@@ -1,4 +1,4 @@
-package com.titaniumtigers4829.data;
+package com.titaniumtigers4829.data.imu;
 
 /**
  * Encapsulates the state of an internal Limelight IMU. This includes gyro and accelerometer data.

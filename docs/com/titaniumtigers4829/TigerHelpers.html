@@ -106,8 +106,8 @@ loadScripts(document, 'script');</script>
 <h2>Method Summary</h2>
 <div id="method-summary-table">
 <div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab1" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab1', 3)" class="table-tab">Static Methods</button><button id="method-summary-table-tab4" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab4', 3)" class="table-tab">Concrete Methods</button><button id="method-summary-table-tab6" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab6', 3)" class="table-tab">Deprecated Methods</button></div>
-<div id="method-summary-table.tabpanel" role="tabpanel" aria-labelledby="method-summary-table-tab0">
-<div class="summary-table three-column-summary">
+<div id="method-summary-table.tabpanel" role="tabpanel">
+<div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
@@ -121,8 +121,8 @@ loadScripts(document, 'script');</script>
  (addVisionMeasurement).</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static edu.wpi.first.math.geometry.Pose2d</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBotPose2d(java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)" class="member-name-link">getBotPose2d</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBotPose2d(java.lang.String,com.titaniumtigers4829.data.pose.Botpose)" class="member-name-link">getBotPose2d</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the specified Pose2d for easy use with Odometry vision pose estimator
  (addVisionMeasurement).</div>
@@ -145,33 +145,33 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6">
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBotPoseEstimate(java.lang.String)" class="member-name-link">getBotPoseEstimate</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the PoseEstimate with the blue-side origin using MegaTag1.</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBotPoseEstimate(java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)" class="member-name-link">getBotPoseEstimate</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getBotPoseEstimate(java.lang.String,com.titaniumtigers4829.data.pose.Botpose)" class="member-name-link">getBotPoseEstimate</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Gets the PoseEstimate for the specified <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data"><code>PoseEstimate.Botpose</code></a> type.</div>
+<div class="block">Gets the PoseEstimate for the specified <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose"><code>Botpose</code></a> type.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code><a href="#getBotPoseEstimate_wpiBlue(java.lang.String)" class="member-name-link">getBotPoseEstimate_wpiBlue</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6">
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code><a href="#getBotPoseEstimate_wpiBlue_MegaTag2(java.lang.String)" class="member-name-link">getBotPoseEstimate_wpiBlue_MegaTag2</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6">
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code><a href="#getBotPoseEstimate_wpiRed(java.lang.String)" class="member-name-link">getBotPoseEstimate_wpiRed</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6">
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code>static <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6"><code><a href="#getBotPoseEstimate_wpiRed_MegaTag2(java.lang.String)" class="member-name-link">getBotPoseEstimate_wpiRed_MegaTag2</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4 method-summary-table-tab6">
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
@@ -189,7 +189,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static double</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getFiducialID(java.lang.String)" class="member-name-link">getFiducialID</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/IMUData.html" title="class in com.titaniumtigers4829.data">IMUData</a></code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/imu/IMUData.html" title="class in com.titaniumtigers4829.data.imu">IMUData</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getIMUData(java.lang.String)" class="member-name-link">getIMUData</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the current IMU data from NetworkTables.</div>
@@ -204,7 +204,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the pipeline's processing latency contribution.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/RawFiducial.html" title="class in com.titaniumtigers4829.data">RawFiducial</a>[]</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static <a href="data/fiducial/RawFiducial.html" title="class in com.titaniumtigers4829.data.fiducial">RawFiducial</a>[]</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#getRawFiducials(java.lang.String)" class="member-name-link">getRawFiducials</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Gets the latest raw fiducial/AprilTag detection results from NetworkTables.</div>
@@ -250,15 +250,15 @@ loadScripts(document, 'script');</script>
 <div class="block">Gets the vertical offset from the principal pixel/point to the target in degrees.</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setBotPoseEstimate(com.titaniumtigers4829.data.PoseEstimate,java.lang.String)" class="member-name-link">setBotPoseEstimate</a><wbr>(<a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a>&nbsp;poseEstimate,
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setBotPoseEstimate(com.titaniumtigers4829.data.pose.PoseEstimate,java.lang.String)" class="member-name-link">setBotPoseEstimate</a><wbr>(<a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a>&nbsp;poseEstimate,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Sets the network table entry for the blue-side, MegaTag1 botpose data.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setBotPoseEstimate(com.titaniumtigers4829.data.PoseEstimate,java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)" class="member-name-link">setBotPoseEstimate</a><wbr>(<a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a>&nbsp;poseEstimate,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setBotPoseEstimate(com.titaniumtigers4829.data.pose.PoseEstimate,java.lang.String,com.titaniumtigers4829.data.pose.Botpose)" class="member-name-link">setBotPoseEstimate</a><wbr>(<a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a>&nbsp;poseEstimate,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</code></div>
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Sets the network table entry for the botpose data.</div>
 </div>
@@ -323,8 +323,8 @@ loadScripts(document, 'script');</script>
 <div class="block"><span class="deprecated-label">Deprecated.</span></div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setIMUMode(java.lang.String,com.titaniumtigers4829.data.IMUData.IMUMode)" class="member-name-link">setIMUMode</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data">IMUData.IMUMode</a>&nbsp;imuMode)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setIMUMode(java.lang.String,com.titaniumtigers4829.data.imu.IMUData.IMUMode)" class="member-name-link">setIMUMode</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
+ <a href="data/imu/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data.imu">IMUData.IMUMode</a>&nbsp;imuMode)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Configures the IMU mode for MegaTag2 Localization</div>
 </div>
@@ -341,7 +341,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Sets the priority tag ID for the Limelight camera.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setRawFiducials(com.titaniumtigers4829.data.RawFiducial%5B%5D,java.lang.String)" class="member-name-link">setRawFiducials</a><wbr>(<a href="data/RawFiducial.html" title="class in com.titaniumtigers4829.data">RawFiducial</a>[]&nbsp;rawFiducials,
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#setRawFiducials(com.titaniumtigers4829.data.fiducial.RawFiducial%5B%5D,java.lang.String)" class="member-name-link">setRawFiducials</a><wbr>(<a href="data/fiducial/RawFiducial.html" title="class in com.titaniumtigers4829.data.fiducial">RawFiducial</a>[]&nbsp;rawFiducials,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Sets the network table entry for the raw fiducials.</div>
@@ -505,7 +505,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getRawFiducials(java.lang.String)">
 <h3>getRawFiducials</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/RawFiducial.html" title="class in com.titaniumtigers4829.data">RawFiducial</a>[]</span>&nbsp;<span class="element-name">getRawFiducials</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/fiducial/RawFiducial.html" title="class in com.titaniumtigers4829.data.fiducial">RawFiducial</a>[]</span>&nbsp;<span class="element-name">getRawFiducials</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="block">Gets the latest raw fiducial/AprilTag detection results from NetworkTables.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -644,7 +644,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getBotPoseEstimate_wpiBlue(java.lang.String)">
 <h3>getBotPoseEstimate_wpiBlue</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiBlue</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiBlue</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Gets the MegaTag1 Pose2d and timestamp for use with WPILib pose estimator
  (addVisionMeasurement) in the WPILib Blue alliance coordinate system.</div>
@@ -659,7 +659,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getBotPoseEstimate_wpiBlue_MegaTag2(java.lang.String)">
 <h3>getBotPoseEstimate_wpiBlue_MegaTag2</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiBlue_MegaTag2</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiBlue_MegaTag2</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Gets the MegaTag2 Pose2d and timestamp for use with WPILib pose estimator
  (addVisionMeasurement) in the WPILib Blue alliance coordinate system. Make sure you are calling
@@ -675,7 +675,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getBotPoseEstimate_wpiRed(java.lang.String)">
 <h3>getBotPoseEstimate_wpiRed</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiRed</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiRed</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
  you are on the RED alliance</div>
@@ -690,7 +690,7 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getBotPoseEstimate_wpiRed_MegaTag2(java.lang.String)">
 <h3>getBotPoseEstimate_wpiRed_MegaTag2</h3>
 <div class="member-signature"><span class="annotations"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Deprecated.html" title="class or interface in java.lang" class="external-link">@Deprecated</a>
-</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiRed_MegaTag2</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+</span><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate_wpiRed_MegaTag2</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
 <div class="block">Gets the Pose2d and timestamp for use with WPILib pose estimator (addVisionMeasurement) when
  you are on the RED alliance</div>
@@ -702,10 +702,10 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getBotPose2d(java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)">
+<section class="detail" id="getBotPose2d(java.lang.String,com.titaniumtigers4829.data.pose.Botpose)">
 <h3>getBotPose2d</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">edu.wpi.first.math.geometry.Pose2d</span>&nbsp;<span class="element-name">getBotPose2d</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</span></div>
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</span></div>
 <div class="block">Gets the specified Pose2d for easy use with Odometry vision pose estimator
  (addVisionMeasurement).</div>
 <dl class="notes">
@@ -732,11 +732,11 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="getBotPoseEstimate(java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)">
+<section class="detail" id="getBotPoseEstimate(java.lang.String,com.titaniumtigers4829.data.pose.Botpose)">
 <h3>getBotPoseEstimate</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</span></div>
-<div class="block">Gets the PoseEstimate for the specified <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data"><code>PoseEstimate.Botpose</code></a> type.</div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</span></div>
+<div class="block">Gets the PoseEstimate for the specified <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose"><code>Botpose</code></a> type.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>limelightName</code> - The name of the Limelight set in the UI ("" for default)</dd>
@@ -749,7 +749,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getBotPoseEstimate(java.lang.String)">
 <h3>getBotPoseEstimate</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a></span>&nbsp;<span class="element-name">getBotPoseEstimate</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="block">Gets the PoseEstimate with the blue-side origin using MegaTag1.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -760,13 +760,13 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setBotPoseEstimate(com.titaniumtigers4829.data.PoseEstimate,java.lang.String,com.titaniumtigers4829.data.PoseEstimate.Botpose)">
+<section class="detail" id="setBotPoseEstimate(com.titaniumtigers4829.data.pose.PoseEstimate,java.lang.String,com.titaniumtigers4829.data.pose.Botpose)">
 <h3>setBotPoseEstimate</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBotPoseEstimate</span><wbr><span class="parameters">(<a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a>&nbsp;poseEstimate,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBotPoseEstimate</span><wbr><span class="parameters">(<a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a>&nbsp;poseEstimate,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/PoseEstimate.Botpose.html" title="enum class in com.titaniumtigers4829.data">PoseEstimate.Botpose</a>&nbsp;botpose)</span></div>
+ <a href="data/pose/Botpose.html" title="enum class in com.titaniumtigers4829.data.pose">Botpose</a>&nbsp;botpose)</span></div>
 <div class="block">Sets the network table entry for the botpose data. This is useful for setting values for unit
- testing. The <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data"><code>PoseEstimate</code></a> does not contain values for the z coordinate, roll, and
+ testing. The <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose"><code>PoseEstimate</code></a> does not contain values for the z coordinate, roll, and
  pitch, so these will be set to 0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -777,12 +777,12 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setBotPoseEstimate(com.titaniumtigers4829.data.PoseEstimate,java.lang.String)">
+<section class="detail" id="setBotPoseEstimate(com.titaniumtigers4829.data.pose.PoseEstimate,java.lang.String)">
 <h3>setBotPoseEstimate</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBotPoseEstimate</span><wbr><span class="parameters">(<a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data">PoseEstimate</a>&nbsp;poseEstimate,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setBotPoseEstimate</span><wbr><span class="parameters">(<a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose">PoseEstimate</a>&nbsp;poseEstimate,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="block">Sets the network table entry for the blue-side, MegaTag1 botpose data. This is useful for
- setting values for unit testing. The <a href="data/PoseEstimate.html" title="class in com.titaniumtigers4829.data"><code>PoseEstimate</code></a> does not contain values for the z
+ setting values for unit testing. The <a href="data/pose/PoseEstimate.html" title="class in com.titaniumtigers4829.data.pose"><code>PoseEstimate</code></a> does not contain values for the z
  coordinate, roll, and pitch, so these will be set to 0.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
@@ -792,9 +792,9 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setRawFiducials(com.titaniumtigers4829.data.RawFiducial[],java.lang.String)">
+<section class="detail" id="setRawFiducials(com.titaniumtigers4829.data.fiducial.RawFiducial[],java.lang.String)">
 <h3>setRawFiducials</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setRawFiducials</span><wbr><span class="parameters">(<a href="data/RawFiducial.html" title="class in com.titaniumtigers4829.data">RawFiducial</a>[]&nbsp;rawFiducials,
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setRawFiducials</span><wbr><span class="parameters">(<a href="data/fiducial/RawFiducial.html" title="class in com.titaniumtigers4829.data.fiducial">RawFiducial</a>[]&nbsp;rawFiducials,
  <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="block">Sets the network table entry for the raw fiducials. This is useful for setting values for unit
  testing.</div>
@@ -808,7 +808,7 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="getIMUData(java.lang.String)">
 <h3>getIMUData</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/IMUData.html" title="class in com.titaniumtigers4829.data">IMUData</a></span>&nbsp;<span class="element-name">getIMUData</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="data/imu/IMUData.html" title="class in com.titaniumtigers4829.data.imu">IMUData</a></span>&nbsp;<span class="element-name">getIMUData</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName)</span></div>
 <div class="block">Gets the current IMU data from NetworkTables. IMU data is formatted as [robotYaw, roll, pitch,
  yaw, gyroX, gyroY, gyroZ, accelX, accelY, accelZ]. Returns all zeros if data is invalid or
  unavailable.</div>
@@ -916,7 +916,7 @@ loadScripts(document, 'script');</script>
 </span><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setIMUMode</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
  int&nbsp;imuMode)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
-<div class="block">Configures the IMU mode for MegaTag2 Localization. This method is deprecated, use <a href="#setIMUMode(java.lang.String,com.titaniumtigers4829.data.IMUData.IMUMode)"><code>setIMUMode(String, IMUMode)</code></a> instead.</div>
+<div class="block">Configures the IMU mode for MegaTag2 Localization. This method is deprecated, use <a href="#setIMUMode(java.lang.String,com.titaniumtigers4829.data.imu.IMUData.IMUMode)"><code>setIMUMode(String, IMUMode)</code></a> instead.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>limelightName</code> - Name/identifier of the Limelight</dd>
@@ -925,15 +925,15 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="detail" id="setIMUMode(java.lang.String,com.titaniumtigers4829.data.IMUData.IMUMode)">
+<section class="detail" id="setIMUMode(java.lang.String,com.titaniumtigers4829.data.imu.IMUData.IMUMode)">
 <h3>setIMUMode</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setIMUMode</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;limelightName,
- <a href="data/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data">IMUData.IMUMode</a>&nbsp;imuMode)</span></div>
+ <a href="data/imu/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data.imu">IMUData.IMUMode</a>&nbsp;imuMode)</span></div>
 <div class="block">Configures the IMU mode for MegaTag2 Localization</div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>limelightName</code> - The name of the Limelight set in the UI ("" for default)</dd>
-<dd><code>imuMode</code> - The IMU mode to set, uses the <a href="data/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data"><code>IMUData.IMUMode</code></a> enum.</dd>
+<dd><code>imuMode</code> - The IMU mode to set, uses the <a href="data/imu/IMUData.IMUMode.html" title="enum class in com.titaniumtigers4829.data.imu"><code>IMUData.IMUMode</code></a> enum.</dd>
 </dl>
 </section>
 </li>

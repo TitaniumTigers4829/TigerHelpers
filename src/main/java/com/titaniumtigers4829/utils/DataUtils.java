@@ -1,8 +1,8 @@
 package com.titaniumtigers4829.utils;
 
-import com.titaniumtigers4829.data.PoseEstimate;
-import com.titaniumtigers4829.data.PoseEstimate.Botpose;
-import com.titaniumtigers4829.data.RawFiducial;
+import com.titaniumtigers4829.data.fiducial.RawFiducial;
+import com.titaniumtigers4829.data.pose.Botpose;
+import com.titaniumtigers4829.data.pose.PoseEstimate;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
