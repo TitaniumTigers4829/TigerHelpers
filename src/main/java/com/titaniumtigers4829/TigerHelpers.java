@@ -2,12 +2,17 @@
 
 package com.titaniumtigers4829;
 
-import com.titaniumtigers4829.data.IMUData;
-import com.titaniumtigers4829.data.IMUData.IMUMode;
-import com.titaniumtigers4829.data.PoseEstimate;
-import com.titaniumtigers4829.data.PoseEstimate.Botpose;
-import com.titaniumtigers4829.data.RawFiducial;
+import com.titaniumtigers4829.data.fiducial.FiducialConstants;
+import com.titaniumtigers4829.data.fiducial.RawFiducial;
+import com.titaniumtigers4829.data.imu.IMUData;
+import com.titaniumtigers4829.data.imu.IMUData.IMUMode;
+import com.titaniumtigers4829.data.imu.IMUDataConstants;
+import com.titaniumtigers4829.data.networktables.NetworkTablesEntries;
+import com.titaniumtigers4829.data.pose.Botpose;
+import com.titaniumtigers4829.data.pose.PoseEstimate;
+import com.titaniumtigers4829.data.pose.PoseEstimateConstants;
 import com.titaniumtigers4829.utils.DataUtils;
+import com.titaniumtigers4829.utils.FiducialDownscaleUtils;
 import com.titaniumtigers4829.utils.NTUtils;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -30,7 +35,7 @@ public class TigerHelpers {
    * @return True if a valid target is present, false otherwise
    */
   public static boolean getTV(String limelightName) {
-    return 1.0 == NTUtils.getLimelightNetworkTableDouble(limelightName, "tv");
+    return 1.0 == NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TV);
   }
 
   /**
@@ -40,7 +45,7 @@ public class TigerHelpers {
    * @return Horizontal offset angle in degrees
    */
   public static double getTX(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "tx");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TX);
   }
 
   /**
@@ -50,7 +55,7 @@ public class TigerHelpers {
    * @return Vertical offset angle in degrees
    */
   public static double getTY(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "ty");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TY);
   }
 
   /**
@@ -62,7 +67,7 @@ public class TigerHelpers {
    * @return Horizontal offset angle in degrees
    */
   public static double getTXNC(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "txnc");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TXNC);
   }
 
   /**
@@ -74,7 +79,7 @@ public class TigerHelpers {
    * @return Vertical offset angle in degrees
    */
   public static double getTYNC(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "tync");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TYNC);
   }
 
   /**
@@ -84,7 +89,7 @@ public class TigerHelpers {
    * @return Target area percentage (0-100%)
    */
   public static double getTA(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "ta");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TA);
   }
 
   /**
@@ -94,7 +99,7 @@ public class TigerHelpers {
    * @return Pipeline latency in milliseconds
    */
   public static double getLatencyPipeline(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "tl");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TL);
   }
 
   /**
@@ -104,7 +109,7 @@ public class TigerHelpers {
    * @return Capture latency in milliseconds
    */
   public static double getLatencyCapture(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "cl");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.CL);
   }
 
   /**
@@ -114,18 +119,18 @@ public class TigerHelpers {
    * @return Array of RawFiducial objects containing detection details
    */
   public static RawFiducial[] getRawFiducials(String limelightName) {
-    NetworkTableEntry entry = NTUtils.getLimelightNetworkTableEntry(limelightName, "rawfiducials");
+    NetworkTableEntry entry =
+        NTUtils.getLimelightNetworkTableEntry(limelightName, NetworkTablesEntries.RAW_FIDUCIALS);
     double[] rawFiducialArray = entry.getDoubleArray(new double[0]);
-    int valsPerEntry = 7;
-    if (rawFiducialArray.length % valsPerEntry != 0) {
+    if (rawFiducialArray.length % FiducialConstants.FIDUCIAL_MULTIPLIER != 0) {
       return new RawFiducial[0];
     }
 
-    int numFiducials = rawFiducialArray.length / valsPerEntry;
+    int numFiducials = rawFiducialArray.length / FiducialConstants.FIDUCIAL_MULTIPLIER;
     RawFiducial[] rawFiducials = new RawFiducial[numFiducials];
 
     for (int i = 0; i < numFiducials; i++) {
-      int baseIndex = i * valsPerEntry;
+      int baseIndex = i * FiducialConstants.FIDUCIAL_MULTIPLIER;
       int id = (int) DataUtils.extractArrayEntry(rawFiducialArray, baseIndex);
       double txnc = DataUtils.extractArrayEntry(rawFiducialArray, baseIndex + 1);
       double tync = DataUtils.extractArrayEntry(rawFiducialArray, baseIndex + 2);
@@ -142,15 +147,16 @@ public class TigerHelpers {
 
   // TODO: deprecate these methods (all the way down to the enum)
   public static double[] getBotPose(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "botpose");
+    return NTUtils.getLimelightNetworkTableDoubleArray(limelightName, NetworkTablesEntries.BOTPOSE);
   }
 
   public static double getFiducialID(String limelightName) {
-    return NTUtils.getLimelightNetworkTableDouble(limelightName, "tid");
+    return NTUtils.getLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.TID);
   }
 
   public static Pose3d getBotPose3d(String limelightName) {
-    double[] poseArray = NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "botpose");
+    double[] poseArray =
+        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, NetworkTablesEntries.BOTPOSE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -164,7 +170,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getBotPose3d_wpiRed(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "botpose_wpired");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.BOTPOSE_WPIRED);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -178,7 +185,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getBotPose3d_wpiBlue(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "botpose_wpiblue");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.BOTPOSE_WPIBLUE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -191,7 +199,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getBotPose3d_TargetSpace(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "botpose_targetspace");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.BOTPOSE_TARGETSPACE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -204,7 +213,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getCameraPose3d_TargetSpace(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "camerapose_targetspace");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.CAMERAPOSE_TARGETSPACE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -217,7 +227,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getTargetPose3d_CameraSpace(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "targetpose_cameraspace");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.TARGETPOSE_CAMERASPACE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -230,7 +241,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getTargetPose3d_RobotSpace(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "targetpose_robotspace");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.TARGETPOSE_ROBOTSPACE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -243,7 +255,8 @@ public class TigerHelpers {
   @Deprecated
   public static Pose3d getCameraPose3d_RobotSpace(String limelightName) {
     double[] poseArray =
-        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "camerapose_robotspace");
+        NTUtils.getLimelightNetworkTableDoubleArray(
+            limelightName, NetworkTablesEntries.CAMERAPOSE_ROBOTSPACE);
     return DataUtils.toPose3D(poseArray);
   }
 
@@ -256,7 +269,8 @@ public class TigerHelpers {
    */
   @Deprecated
   public static PoseEstimate getBotPoseEstimate_wpiBlue(String limelightName) {
-    return DataUtils.unpackBotPoseEstimate(limelightName, "botpose_wpiblue", false);
+    return DataUtils.unpackBotPoseEstimate(
+        limelightName, NetworkTablesEntries.BOTPOSE_WPIBLUE, false);
   }
 
   /**
@@ -269,7 +283,8 @@ public class TigerHelpers {
    */
   @Deprecated
   public static PoseEstimate getBotPoseEstimate_wpiBlue_MegaTag2(String limelightName) {
-    return DataUtils.unpackBotPoseEstimate(limelightName, "botpose_orb_wpiblue", true);
+    return DataUtils.unpackBotPoseEstimate(
+        limelightName, NetworkTablesEntries.BOTPOSE_ORB_WPIBLUE, true);
   }
 
   /**
@@ -281,7 +296,8 @@ public class TigerHelpers {
    */
   @Deprecated
   public static PoseEstimate getBotPoseEstimate_wpiRed(String limelightName) {
-    return DataUtils.unpackBotPoseEstimate(limelightName, "botpose_wpired", false);
+    return DataUtils.unpackBotPoseEstimate(
+        limelightName, NetworkTablesEntries.BOTPOSE_WPIRED, false);
   }
 
   /**
@@ -293,7 +309,8 @@ public class TigerHelpers {
    */
   @Deprecated
   public static PoseEstimate getBotPoseEstimate_wpiRed_MegaTag2(String limelightName) {
-    return DataUtils.unpackBotPoseEstimate(limelightName, "botpose_orb_wpired", true);
+    return DataUtils.unpackBotPoseEstimate(
+        limelightName, NetworkTablesEntries.BOTPOSE_ORB_WPIRED, true);
   }
 
   /**
@@ -358,7 +375,10 @@ public class TigerHelpers {
     // Calculates array size: 11 (for PoseEstimate data) + 7 * number of fiducials (for each raw
     // fiducial)
     int fiducialCount = poseEstimate.rawFiducials().length;
-    double[] data = new double[11 + 7 * fiducialCount];
+    double[] data =
+        new double
+            [PoseEstimateConstants.POSE_ESTIMATE_SIZE
+                + FiducialConstants.FIDUCIAL_MULTIPLIER * fiducialCount];
 
     // Populates the PoseEstimate, matching DataUtils.unpackBotPoseEstimate
     data[0] = poseEstimate.pose().getX(); // x
@@ -375,7 +395,8 @@ public class TigerHelpers {
 
     // Add data for each fiducial
     for (int i = 0; i < fiducialCount; i++) {
-      int baseIndex = 11 + (i * 7);
+      int baseIndex =
+          PoseEstimateConstants.POSE_ESTIMATE_SIZE + (i * FiducialConstants.FIDUCIAL_MULTIPLIER);
       RawFiducial fid = poseEstimate.rawFiducials()[i];
       data[baseIndex] = fid.id(); // id (cast to double)
       data[baseIndex + 1] = fid.txnc(); // txnc
@@ -410,11 +431,12 @@ public class TigerHelpers {
    * @param limelightName The name of the Limelight set in the UI ("" for default)
    */
   public static void setRawFiducials(RawFiducial[] rawFiducials, String limelightName) {
-    NetworkTableEntry entry = NTUtils.getLimelightNetworkTableEntry(limelightName, "rawfiducials");
-    double[] data = new double[rawFiducials.length * 7];
+    NetworkTableEntry entry =
+        NTUtils.getLimelightNetworkTableEntry(limelightName, NetworkTablesEntries.RAW_FIDUCIALS);
+    double[] data = new double[rawFiducials.length * FiducialConstants.FIDUCIAL_MULTIPLIER];
 
     for (int i = 0; i < rawFiducials.length; i++) {
-      int baseIndex = i * 7;
+      int baseIndex = i * FiducialConstants.FIDUCIAL_MULTIPLIER;
       RawFiducial fid = rawFiducials[i];
       data[baseIndex] = (double) fid.id();
       data[baseIndex + 1] = fid.txnc();
@@ -437,11 +459,14 @@ public class TigerHelpers {
    * @return IMUData object containing all current IMU data
    */
   public static IMUData getIMUData(String limelightName) {
-    double[] imuData = NTUtils.getLimelightNetworkTableDoubleArray(limelightName, "imu");
+    double[] imuData =
+        NTUtils.getLimelightNetworkTableDoubleArray(limelightName, NetworkTablesEntries.IMU);
     IMUMode imuMode =
         IMUMode.fromValue(
-            (int) NTUtils.getLimelightNetworkTableDouble(limelightName, "imumode_set"));
-    if (imuData == null || imuData.length < 10) {
+            (int)
+                NTUtils.getLimelightNetworkTableDouble(
+                    limelightName, NetworkTablesEntries.IMU_MODE_SET));
+    if (imuData == null || imuData.length < IMUDataConstants.IMU_DATA_SIZE) {
       return new IMUData(); // Returns object with all zeros
     }
     return new IMUData(
@@ -466,7 +491,7 @@ public class TigerHelpers {
    * @param ID ID of the tag to prioritize
    */
   public static void setPriorityTagID(String limelightName, int ID) {
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "priorityid", ID);
+    NTUtils.setLimelightNetworkTableDouble(limelightName, NetworkTablesEntries.PRIORITY_ID, ID);
   }
 
   /**
@@ -487,7 +512,7 @@ public class TigerHelpers {
     entries[1] = cropXMax;
     entries[2] = cropYMin;
     entries[3] = cropYMax;
-    NTUtils.setLimelightNetworkTableDoubleArray(limelightName, "crop", entries);
+    NTUtils.setLimelightNetworkTableDoubleArray(limelightName, NetworkTablesEntries.CROP, entries);
   }
 
   /**
@@ -504,7 +529,8 @@ public class TigerHelpers {
     entries[0] = offsetX;
     entries[1] = offsetY;
     entries[2] = offsetZ;
-    NTUtils.setLimelightNetworkTableDoubleArray(limelightName, "fiducial_offset_set", entries);
+    NTUtils.setLimelightNetworkTableDoubleArray(
+        limelightName, NetworkTablesEntries.FIDUCIAL_OFFSET_SET, entries);
   }
 
   /**
@@ -533,7 +559,8 @@ public class TigerHelpers {
     entries[3] = pitchRate;
     entries[4] = roll;
     entries[5] = rollRate;
-    NTUtils.setLimelightNetworkTableDoubleArray(limelightName, "robot_orientation_set", entries);
+    NTUtils.setLimelightNetworkTableDoubleArray(
+        limelightName, NetworkTablesEntries.ROBOT_ORIENTATION_SET, entries);
     NTUtils.flushNetworkTable();
   }
 
@@ -557,7 +584,8 @@ public class TigerHelpers {
    */
   @Deprecated
   public static void setIMUMode(String limelightName, int imuMode) {
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "imumode_set", imuMode);
+    NTUtils.setLimelightNetworkTableDouble(
+        limelightName, NetworkTablesEntries.IMU_MODE_SET, imuMode);
   }
 
   /**
@@ -567,7 +595,8 @@ public class TigerHelpers {
    * @param imuMode The IMU mode to set, uses the {@link IMUMode} enum.
    */
   public static void setIMUMode(String limelightName, IMUMode imuMode) {
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "imumode_set", imuMode.getModeValue());
+    NTUtils.setLimelightNetworkTableDouble(
+        limelightName, NetworkTablesEntries.IMU_MODE_SET, imuMode.getModeValue());
   }
 
   /**
@@ -579,7 +608,8 @@ public class TigerHelpers {
    *     1 = process every other frame, etc.
    */
   public static void setLimelightThrottle(String limelightName, int throttle) {
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "throttle_set", throttle);
+    NTUtils.setLimelightNetworkTableDouble(
+        limelightName, NetworkTablesEntries.THROTTLE_SET, throttle);
   }
 
   /**
@@ -590,7 +620,8 @@ public class TigerHelpers {
    *     assist source more rapidly.
    */
   public static void setIMUAssistAlpha(String limelightName, double alpha) {
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "imuassistalpha_set", alpha);
+    NTUtils.setLimelightNetworkTableDouble(
+        limelightName, NetworkTablesEntries.IMU_ASSIST_ALPHA_SET, alpha);
   }
 
   /**
@@ -607,7 +638,8 @@ public class TigerHelpers {
     entries[0] = x;
     entries[1] = y;
     entries[2] = z;
-    NTUtils.setLimelightNetworkTableDoubleArray(limelightName, "fiducial_offset_set", entries);
+    NTUtils.setLimelightNetworkTableDoubleArray(
+        limelightName, NetworkTablesEntries.FIDUCIAL_OFFSET_SET, entries);
   }
 
   /**
@@ -623,7 +655,7 @@ public class TigerHelpers {
       validIDsDouble[i] = validIDs[i];
     }
     NTUtils.setLimelightNetworkTableDoubleArray(
-        limelightName, "fiducial_id_filters_set", validIDsDouble);
+        limelightName, NetworkTablesEntries.FIDUCIAL_ID_FILTERS_SET, validIDsDouble);
   }
 
   /**
@@ -635,23 +667,10 @@ public class TigerHelpers {
    *     0 for pipeline control.
    */
   public static void setFiducialDownscalingOverride(String limelightName, float downscale) {
-    int d = 0; // pipeline
-    if (downscale == 1.0) {
-      d = 1;
-    }
-    if (downscale == 1.5) {
-      d = 2;
-    }
-    if (downscale == 2) {
-      d = 3;
-    }
-    if (downscale == 3) {
-      d = 4;
-    }
-    if (downscale == 4) {
-      d = 5;
-    }
-    NTUtils.setLimelightNetworkTableDouble(limelightName, "fiducial_downscale_set", d);
+    NTUtils.setLimelightNetworkTableDouble(
+        limelightName,
+        NetworkTablesEntries.FIDUCIAL_DOWNSCALE_SET,
+        FiducialDownscaleUtils.convertDownscale(downscale));
   }
 
   /**
@@ -681,6 +700,6 @@ public class TigerHelpers {
     entries[4] = pitch;
     entries[5] = yaw;
     NTUtils.setLimelightNetworkTableDoubleArray(
-        limelightName, "camerapose_robotspace_set", entries);
+        limelightName, NetworkTablesEntries.CAMERAPOSE_ROBOTSPACE_SET, entries);
   }
 }

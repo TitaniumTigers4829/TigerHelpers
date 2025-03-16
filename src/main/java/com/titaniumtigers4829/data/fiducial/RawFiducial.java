@@ -1,4 +1,4 @@
-package com.titaniumtigers4829.data;
+package com.titaniumtigers4829.data.fiducial;
 
 /** Represents a Limelight Raw Fiducial result from Limelight's NetworkTables output. */
 public record RawFiducial(
