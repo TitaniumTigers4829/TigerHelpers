@@ -12,7 +12,7 @@ Migrating from LimelightHelpers to this is pretty easy, just delete `LimelightHe
 
 ## Documentation
 
-Eventually, there will be better docs and examples, but for now there's [Javadoc](http://titaniumtigers4829.com/TigerHelpers/com/titaniumtigers4829/package-summary.html)
+Eventually, there will be better docs and examples, but for now there's [Javadoc](http://titaniumtigers4829.com/TigerHelpers/index.html)
 
 ## Setup Instructions (Only do this if you want to help contribute)
 
