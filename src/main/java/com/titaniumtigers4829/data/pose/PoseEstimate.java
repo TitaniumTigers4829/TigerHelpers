@@ -32,11 +32,11 @@ public record PoseEstimate(
     /** true if the pose estimate is calculated using MegaTag2, false if using MegaTag1. */
     boolean isMegaTag2,
     /** The botpose data type used to calculate the pose estimate. */
-    Optional<Botpose> botpose) {
+    Botpose botpose) {
 
   /** Initializes an "empty" PoseEstimate record with default values */
   public PoseEstimate() {
-    this(Optional.empty(), 0, 0, 0, 0, 0, 0, Optional.empty(), false, Optional.empty());
+    this(Optional.empty(), 0, 0, 0, 0, 0, 0, Optional.empty(), false, Botpose.BLUE_MEGATAG1);
   }
 
   @Override
