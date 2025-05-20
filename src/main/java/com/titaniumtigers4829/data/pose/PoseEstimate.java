@@ -3,6 +3,7 @@ package com.titaniumtigers4829.data.pose;
 import com.titaniumtigers4829.data.fiducial.RawFiducial;
 import edu.wpi.first.math.geometry.Pose2d;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Represents a Limelight pose estimate from Limelight's NetworkTables output. This is for any
@@ -10,7 +11,7 @@ import java.util.Arrays;
  */
 public record PoseEstimate(
     /** The estimated 2D pose of the robot, including position and rotation. */
-    Pose2d pose,
+    Optional<Pose2d> pose,
     /** The timestamp of the pose estimate in seconds since the Limelight booted up. */
     double timestampSeconds,
     /** The latency of the pose estimate in milliseconds. */
@@ -26,16 +27,16 @@ public record PoseEstimate(
     double avgTagDist,
     /** The average area, in square meters, of april tags used to calculate the pose estimate. */
     double avgTagArea,
-    /** An array of RawFiducial used to calculate the pose estimate. */
-    RawFiducial[] rawFiducials,
+    /** An Optional array of RawFiducial used to calculate the pose estimate. */
+    Optional<RawFiducial[]> rawFiducials,
     /** true if the pose estimate is calculated using MegaTag2, false if using MegaTag1. */
     boolean isMegaTag2,
     /** The botpose data type used to calculate the pose estimate. */
-    Botpose botpose) {
+    Optional<Botpose> botpose) {
 
   /** Initializes an "empty" PoseEstimate record with default values */
   public PoseEstimate() {
-    this(new Pose2d(), 0, 0, 0, 0, 0, 0, new RawFiducial[0], false, Botpose.BLUE_MEGATAG1);
+    this(Optional.empty(), 0, 0, 0, 0, 0, 0, Optional.empty(), false, Optional.empty());
   }
 
   @Override
@@ -51,7 +52,7 @@ public record PoseEstimate(
         && Double.compare(that.avgTagDist(), avgTagDist) == 0
         && Double.compare(that.avgTagArea(), avgTagArea) == 0
         && pose.equals(that.pose())
-        && Arrays.equals(rawFiducials, that.rawFiducials());
+        && rawFiducials.map(Arrays::toString).orElse("").equals(that.rawFiducials().map(Arrays::toString).orElse(""));
   }
 
   /**
@@ -61,6 +62,6 @@ public record PoseEstimate(
    * @return True if the PoseEstimate is valid, false otherwise
    */
   public boolean isValidPoseEstimate() {
-    return rawFiducials != null && rawFiducials.length != 0;
+    return rawFiducials.isPresent() && rawFiducials.get().length != 0;
   }
 }
