@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.DoubleArrayEntry;
 import edu.wpi.first.networktables.TimestampedDoubleArray;
+import java.util.Optional;
 
 public class DataUtils {
 
@@ -109,7 +110,7 @@ public class DataUtils {
       return new PoseEstimate();
     }
 
-    Pose2d pose = toPose2D(poseArray);
+    Optional<Pose2d> pose = Optional.of(toPose2D(poseArray));
     double latency = extractArrayEntry(poseArray, 6);
     int tagCount = (int) extractArrayEntry(poseArray, 7);
     double tagSpan = extractArrayEntry(poseArray, 8);
@@ -119,13 +120,12 @@ public class DataUtils {
     // Convert server timestamp from microseconds to seconds and adjust for latency
     double adjustedTimestamp = (timestamp / 1000000.0) - (latency / 1000.0);
 
-    RawFiducial[] rawFiducials = new RawFiducial[tagCount];
+    Optional<RawFiducial[]> rawFiducials = Optional.empty();
     int valsPerFiducial = 7;
     int expectedTotalVals = 11 + valsPerFiducial * tagCount;
 
-    if (poseArray.length != expectedTotalVals) {
-      // Don't populate fiducials
-    } else {
+    if (poseArray.length == expectedTotalVals) {
+      RawFiducial[] fiducials = new RawFiducial[tagCount];
       for (int i = 0; i < tagCount; i++) {
         int baseIndex = 11 + (i * valsPerFiducial);
         int id = (int) poseArray[baseIndex];
@@ -135,8 +135,9 @@ public class DataUtils {
         double distToCamera = poseArray[baseIndex + 4];
         double distToRobot = poseArray[baseIndex + 5];
         double ambiguity = poseArray[baseIndex + 6];
-        rawFiducials[i] = new RawFiducial(id, txnc, tync, ta, distToCamera, distToRobot, ambiguity);
+        fiducials[i] = new RawFiducial(id, txnc, tync, ta, distToCamera, distToRobot, ambiguity);
       }
+      rawFiducials = Optional.of(fiducials);
     }
 
     return new PoseEstimate(
