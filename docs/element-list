@@ -1,3 +1,6 @@
 com.titaniumtigers4829
-com.titaniumtigers4829.data
+com.titaniumtigers4829.data.fiducial
+com.titaniumtigers4829.data.imu
+com.titaniumtigers4829.data.networktables
+com.titaniumtigers4829.data.pose
 com.titaniumtigers4829.utils
