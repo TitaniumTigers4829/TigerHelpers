@@ -5,7 +5,7 @@ plugins {
 }
 
 // Update as needed
-ext.wpilibVersion = "2025.3.1"
+ext.wpilibVersion = "2026.1.1"
 
 repositories {
     mavenCentral()
@@ -25,7 +25,7 @@ ext {
     wpilibVersion = "$wpilibVersion"
     groupId = "com.titaniumtigers4829"
     artifactId = "tigerhelpers"
-    version = "v1.1.0"
+    version = "v1.1.1"
 }
 
 dependencies {
@@ -76,7 +76,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = "com.titaniumtigers4829"
             artifactId = "tigerhelpers"
-            version = "v1.1.0"
+            version = "v1.1.1"
             from components.java
         }
     }

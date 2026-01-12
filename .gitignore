@@ -3,5 +3,6 @@
 .gradle/
 build/
 jars/
+bin/
 
 gradle.properties
